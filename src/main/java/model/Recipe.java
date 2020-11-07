@@ -42,6 +42,13 @@ public class Recipe {
         this.writerId = writerId;
     }
 
+    public int getRecipeId() {
+        return recipeId;
+    }
+
+    public void setRecipeId(int recipeId) {
+        this.recipeId = recipeId;
+    }
 
     public String getTitle() {
         return title;

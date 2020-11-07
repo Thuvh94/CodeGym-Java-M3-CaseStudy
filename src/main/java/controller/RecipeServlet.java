@@ -33,10 +33,15 @@ public class RecipeServlet extends HttpServlet {
             case "create":
                 addRecipe(request, response);
                 break;
+            case "update":
+                updateRecipe(request,response);
+                break;
             default:
                 break;
         }
     }
+
+
 
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -51,11 +56,15 @@ public class RecipeServlet extends HttpServlet {
             case "create":
                 showCreateForm(request, response);
                 break;
+            case "update":
+                showUpdateForm(request,response);
             default:
                 displayRecipeList(request, response);
                 break;
         }
     }
+
+
 
 
     // Chức năng hiển thị chi tiết bài đăng
@@ -118,7 +127,7 @@ public class RecipeServlet extends HttpServlet {
             e.printStackTrace();
         }
     }
-
+// Show list recipe
     private void displayRecipeList(HttpServletRequest request, HttpServletResponse response) {
 
         List<Recipe> recipeList = new ArrayList<>();
@@ -137,5 +146,63 @@ public class RecipeServlet extends HttpServlet {
             e.printStackTrace();
         }
     }
+    // Chức năng update recipe
+    private void showUpdateForm(HttpServletRequest request, HttpServletResponse response) {
+        List<Category> categoryList = null;
+        try {
+            categoryList = iServiceCategory.findAll();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        int id = Integer.parseInt(request.getParameter("id"));
+        Recipe recipe = iServiceRecipe.findById(id);
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("admin/updateRecipe.jsp");
+        request.setAttribute("editRecipe", recipe);
+        request.setAttribute("categoryList",categoryList);
+        try {
+            requestDispatcher.forward(request, response);
+        } catch (ServletException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void updateRecipe(HttpServletRequest request, HttpServletResponse response) {
+        System.out.println("update recipe");
+        int id = Integer.parseInt(request.getParameter("id"));
+        String title = request.getParameter("title");
+        System.out.println(title);
+        String description = request.getParameter("description");
+        System.out.println(description);
+        String ingredient = request.getParameter("ingredient");
+        System.out.println(ingredient);
+        int difficulty = Integer.parseInt(request.getParameter("difficulty"));
+        System.out.println("difficulty"+difficulty);
+        float cookTime = Float.parseFloat(request.getParameter("cookTime"));
+        System.out.println("cookTime"+cookTime);
+        int yield = Integer.parseInt(request.getParameter("yield"));
+        System.out.println("yield"+yield);
+        int categoryId = Integer.parseInt(request.getParameter("category"));
+        System.out.println("categoryId: "+ categoryId);
+        Category category = iServiceCategory.findById(categoryId);
+        System.out.println(category);
+        //        String coverImg = request.getParameter("coverImg");
+//        System.out.println("Cover img: " + coverImg);
+        Recipe recipe = new Recipe(title, description, ingredient, difficulty, cookTime, yield, category);
+        System.out.println(recipe);
+        try {
+            iServiceRecipe.update(id,recipe);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        displayRecipeList(request,response);
+    }
+
+
 
 }
