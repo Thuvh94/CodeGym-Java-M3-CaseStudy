@@ -10,6 +10,7 @@ import java.util.List;
 public class iServiceRecipeImpl implements iService<Recipe> {
     private static final String SELECT_ALL_RECIPE = "select * from recipe";
     private static final String FIND_RECIPE_BY_ID = "select * from recipe where recipeId= ?;";
+    private static final String DELETE_RECIPE = "delete from recipe where recipeId = ?;";
 
     @Override
     public List<Recipe> findAll() throws SQLException, ClassNotFoundException {
@@ -69,11 +70,16 @@ public class iServiceRecipeImpl implements iService<Recipe> {
         callableStatement.setInt("categoryId",category.getCategoryId());
         callableStatement.setString("coverImg","No Image"); // Set tạm để Test
         int row = callableStatement.executeUpdate();
+        System.out.println(row);
     }
 
     @Override
     public void delete(int id) throws SQLException, ClassNotFoundException {
-
+        Connection connection = new Connection();
+        PreparedStatement preparedStatement = connection.getConnection().prepareStatement(DELETE_RECIPE);
+        preparedStatement.setInt(1,id);
+        int row = preparedStatement.executeUpdate();
+        System.out.println(row);
     }
 
     @Override

@@ -18,7 +18,9 @@
     <c:out value="${recipe.getCreatedAt()}"/>
     <c:out value="${recipe.getDifficulty()}"/>
     <c:out value="${recipe.getCategoryId()}"/>
-    <a href="/FoodBlog?action=update&id=${recipe.getRecipeId()}">Update</a><br><br>
+    <a href="/FoodBlog?action=update&id=${recipe.getRecipeId()}">Update</a>
+    <a href="/FoodBlog?action=delete&id=${recipe.getRecipeId()}">Delete</a><br><br>
+
 </c:forEach>
 
 </body>
