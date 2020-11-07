@@ -12,10 +12,6 @@
     <title>Recipe Detail</title>
 </head>
 <body>
-<table>
-    <tr>
-
-    </tr>
-</table>
+<c:out value="${recipe}"></c:out>
 </body>
 </html>

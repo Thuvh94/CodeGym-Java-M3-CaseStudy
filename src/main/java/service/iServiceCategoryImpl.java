@@ -63,6 +63,7 @@ public class iServiceCategoryImpl implements iService<Category> {
             e.printStackTrace();
         }
         return category;
+
     }
 
     private void printSQLException(SQLException ex) {

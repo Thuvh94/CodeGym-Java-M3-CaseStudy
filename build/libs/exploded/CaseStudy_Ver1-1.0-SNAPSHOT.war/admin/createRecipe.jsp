@@ -38,21 +38,21 @@
         <div class="form-group row">
             <label for="prepareTime" class="col-4 col-form-label">Thời gian chuẩn bị </label>
             <div class="col-2">
-                <input class="form-control" type="number" id="prepareTime">
+                <input class="form-control" type="number" id="prepareTime" name="prepareTime">
             </div>
             <label for="cookTime" class="col-4 col-form-label">Thời gian nấu/nướng </label>
             <div class="col-2">
-                <input class="form-control" type="number" id="cookTime">
+                <input class="form-control" type="number" id="cookTime" name="cookTime">
             </div>
         </div>
         <div class="form-group row">
             <label for="waitTime" class="col-4 col-form-label">Thời gian chờ </label>
             <div class="col-2">
-                <input class="form-control" type="number" id="waitTime">
+                <input class="form-control" type="number" id="waitTime" name="waitTime">
             </div>
             <label for="yield" class="col-4 col-form-label">Khẩu phần</label>
             <div class="col-2">
-                <input class="form-control" type="number" id="yield">
+                <input class="form-control" type="number" id="yield" name="yield">
             </div>
         </div>
         <div class="form-group row">

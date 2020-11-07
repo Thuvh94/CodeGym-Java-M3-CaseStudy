@@ -12,9 +12,13 @@
     <title>Title</title>
 </head>
 <body>
-<h1>Customer List</h1>
+<h1>Recipe List</h1>
 <c:forEach var="recipe" items="${recipeList}">
     <c:out value="${recipe.getTitle()}"/>
+    <c:out value="${recipe.getCreatedAt()}"/>
+    <c:out value="${recipe.getDifficulty()}"/>
+    <c:out value="${recipe.getEquipment()}"/>
+    <c:out value="${recipe.getCategoryId()}"/>
 </c:forEach>
 
 </body>

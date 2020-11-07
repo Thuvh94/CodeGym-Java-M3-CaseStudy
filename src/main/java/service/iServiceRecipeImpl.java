@@ -47,7 +47,20 @@ public class iServiceRecipeImpl implements iService<Recipe> {
 
     @Override
     public void add(Recipe object) throws SQLException, ClassNotFoundException {
-
+        Connection connection = new Connection();
+        CallableStatement callableStatement = connection.getConnection().prepareCall("{ call addRecipe(?,?,?,?,?,?,?,?,?,?)}");
+        callableStatement.setString(1,object.getTitle());
+        callableStatement.setString(2,object.getDescription());
+        callableStatement.setString(3,object.getIngredient());
+        callableStatement.setInt(4,object.getDifficulty());
+        callableStatement.setFloat(5,object.getPrepareTime());
+        callableStatement.setFloat(6,object.getCookTime());
+        callableStatement.setFloat(7,object.getWaitingTime());
+        callableStatement.setInt(8,object.getYield());
+        callableStatement.setInt(9,2); // tạm fix cứng để test chức năng add
+        callableStatement.setString(10,object.getCoverImg());
+        int row = callableStatement.executeUpdate();
+        System.out.println(row);
     }
 
     @Override

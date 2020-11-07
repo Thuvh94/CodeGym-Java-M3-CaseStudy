@@ -21,7 +21,7 @@ public class Recipe {
     private int status;
     private int writerId;
 
-    public Recipe(String title, String description, String ingredient, int difficulty, float prepareTime, float cookTime, float waitingTime, int yield, String equipment, Category categoryId, String coverImg) {
+    public Recipe(String title, String description, String ingredient, int difficulty, float prepareTime, float cookTime, float waitingTime, int yield, String equipment, Category categoryId) {
         this.title = title;
         this.description = description;
         this.ingredient = ingredient;
@@ -32,7 +32,7 @@ public class Recipe {
         this.yield = yield;
         this.equipment = equipment;
         this.categoryId = categoryId;
-        this.coverImg = coverImg;
+//        this.coverImg = coverImg;
     }
 
     public Recipe(int recipeId, String title, String description, String ingredient, int difficulty, float prepareTime, float cookTime, float waitingTime, int yield, String equipment, Category categoryId, Timestamp publishedAt, Timestamp createdAt, Timestamp updatedAt, String coverImg, int status, int writerId) {
@@ -54,6 +54,7 @@ public class Recipe {
         this.status = status;
         this.writerId = writerId;
     }
+
 
     public int getRecipeId() {
         return recipeId;
@@ -189,5 +190,28 @@ public class Recipe {
 
     public void setWriterId(int writerId) {
         this.writerId = writerId;
+    }
+
+    @Override
+    public String toString() {
+        return "Recipe{" +
+                "recipeId=" + recipeId +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", ingredient='" + ingredient + '\'' +
+                ", difficulty=" + difficulty +
+                ", prepareTime=" + prepareTime +
+                ", cookTime=" + cookTime +
+                ", waitingTime=" + waitingTime +
+                ", yield=" + yield +
+                ", equipment='" + equipment + '\'' +
+                ", categoryId=" + categoryId +
+                ", publishedAt=" + publishedAt +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                ", coverImg='" + coverImg + '\'' +
+                ", status=" + status +
+                ", writerId=" + writerId +
+                '}';
     }
 }

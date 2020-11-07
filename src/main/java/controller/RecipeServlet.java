@@ -16,39 +16,38 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet(name = "RecipeServlet",urlPatterns = "/FoodBlog")
+@WebServlet(name = "RecipeServlet", urlPatterns = "/FoodBlog")
 public class RecipeServlet extends HttpServlet {
     iServiceCategoryImpl iServiceCategory = new iServiceCategoryImpl();
     iServiceRecipeImpl iServiceRecipe = new iServiceRecipeImpl();
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
-        if(action == null){
+        if (action == null) {
             action = "";
         }
-        switch (action){
+        switch (action) {
             case "create":
-                addRecipe(request,response);
+                addRecipe(request, response);
                 break;
-
             default:
-
                 break;
         }
     }
 
 
-
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
-        if(action == null){
+        if (action == null) {
             action = "";
         }
-        switch (action){
+        switch (action) {
             case "create":
-                showCreateForm(request,response);
+                showCreateForm(request, response);
                 break;
             default:
-                displayRecipeList(request,response);
+                displayRecipeList(request, response);
+                break;
         }
     }
 
@@ -56,13 +55,13 @@ public class RecipeServlet extends HttpServlet {
     // Chức năng hiển thị chi tiết bài đăng
 
     // Chức năng tạo bài đăng
-    private void showCreateForm(HttpServletRequest request, HttpServletResponse response){
+    private void showCreateForm(HttpServletRequest request, HttpServletResponse response) {
         List<Category> categoryList = null;
         try {
             categoryList = iServiceCategory.findAll();
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("admin/createRecipe.jsp");
-            request.setAttribute("categoryList",categoryList);
-            requestDispatcher.forward(request,response);
+            request.setAttribute("categoryList", categoryList);
+            requestDispatcher.forward(request, response);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         } catch (ClassNotFoundException e) {
@@ -75,42 +74,59 @@ public class RecipeServlet extends HttpServlet {
     }
 
     private void addRecipe(HttpServletRequest request, HttpServletResponse response) {
+        System.out.println("add recipe");
         String title = request.getParameter("title");
+        System.out.println(title);
         String description = request.getParameter("description");
+        System.out.println(description);
         String ingredient = request.getParameter("ingredient");
+        System.out.println(ingredient);
         int difficulty = Integer.parseInt(request.getParameter("difficulty"));
-        System.out.println(difficulty);
+        System.out.println("difficulty"+difficulty);
         String equipment = request.getParameter("equipment");
+        System.out.println("equipment" + equipment);
         float prepareTime = Float.parseFloat(request.getParameter("prepareTime"));
-        System.out.println(prepareTime);
-
-
-//        private int recipeId;
-//        private String title;
-//        private String description;
-//        private String ingredient;
-//        private int difficulty;
-//        private float prepareTime;
-//        private float cookTime;
-//        private float waitingTime;
-//        private int yield;
-//        private String equipment;
-//        private Category categoryId;
-//        private Timestamp publishedAt;
-//        private Timestamp createdAt;
-//        private Timestamp updatedAt;
-//        private String coverImg;
-//        private int status;
-//        private int writerId;
-
+        System.out.println("prepareTime" + prepareTime);
+        float cookTime = Float.parseFloat(request.getParameter("cookTime"));
+        System.out.println("cookTime"+cookTime);
+        float waitTime = Float.parseFloat(request.getParameter("waitTime"));
+        System.out.println("waitTime" + waitTime);
+        int yield = Integer.parseInt(request.getParameter("yield"));
+        System.out.println("yield"+yield);
+        int categoryId = Integer.parseInt(request.getParameter("category"));
+        System.out.println("categoryId: "+ categoryId);
+//        String coverImg = request.getParameter("coverImg");
+//        System.out.println("Cover img: " + coverImg);
+        Category category = iServiceCategory.findById(categoryId);
+        System.out.println(category);
+        Recipe recipe = new Recipe(title, description, ingredient, difficulty,
+                prepareTime, cookTime, waitTime, yield, equipment, category);
+        System.out.println(recipe);
+        try {
+            iServiceRecipe.add(recipe);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("client/recipeDetail.jsp");
+        request.setAttribute("recipe", recipe);
+        try {
+            requestDispatcher.forward(request, response);
+        } catch (ServletException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
+
     private void displayRecipeList(HttpServletRequest request, HttpServletResponse response) {
         List<Recipe> recipeList = new ArrayList<>();
         try {
             recipeList = iServiceRecipe.findAll();
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("client/recipeList.jsp");
-            request.setAttribute("recipeList",recipeList);
-            requestDispatcher.forward(request,response);
+            request.setAttribute("recipeList", recipeList);
+            requestDispatcher.forward(request, response);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         } catch (ClassNotFoundException e) {
