@@ -23,24 +23,16 @@ public class iServiceRecipeImpl implements iService<Recipe> {
             String description = resultSet.getString("description");
             String ingredient = resultSet.getString("ingredient");
             int difficulty = resultSet.getInt("difficulty");
-            float prepareTime = resultSet.getFloat("prepareTime");
-            float cookTime = resultSet.getFloat("prepareTime");
-            float waitingTime = resultSet.getFloat("waitingTime");
+            float cookTime = resultSet.getFloat("cookTime");
             int yield = resultSet.getInt("yield");
-            String equipment = resultSet.getString("equipment");
             int categoryId = resultSet.getInt("categoryId");
             iServiceCategoryImpl categoryImpl = new iServiceCategoryImpl();
             Category category = categoryImpl.findById(categoryId);
             Timestamp publishedAt = resultSet.getTimestamp("publishedAt");
             Timestamp createdAt = resultSet.getTimestamp("createdAt");
-            Timestamp updatedAt = resultSet.getTimestamp("updatedAt");
             String coverImg = resultSet.getString("coverImg");
-            int status = resultSet.getInt("status");
             int writerId = resultSet.getInt("writerId");
-            recipeList.add(new Recipe( recipeId, title, description, ingredient, difficulty,
-           prepareTime, cookTime,  waitingTime, yield,equipment,category,
-                    publishedAt, createdAt, updatedAt, coverImg, status,
-           writerId)) ;
+            recipeList.add(new Recipe( recipeId, title, description, ingredient, difficulty, cookTime,yield,category, publishedAt, createdAt, coverImg, writerId)) ;
         }
         return recipeList;
     }
@@ -48,17 +40,16 @@ public class iServiceRecipeImpl implements iService<Recipe> {
     @Override
     public void add(Recipe object) throws SQLException, ClassNotFoundException {
         Connection connection = new Connection();
-        CallableStatement callableStatement = connection.getConnection().prepareCall("{ call addRecipe(?,?,?,?,?,?,?,?,?,?)}");
-        callableStatement.setString(1,object.getTitle());
-        callableStatement.setString(2,object.getDescription());
-        callableStatement.setString(3,object.getIngredient());
-        callableStatement.setInt(4,object.getDifficulty());
-        callableStatement.setFloat(5,object.getPrepareTime());
-        callableStatement.setFloat(6,object.getCookTime());
-        callableStatement.setFloat(7,object.getWaitingTime());
-        callableStatement.setInt(8,object.getYield());
-        callableStatement.setInt(9,2); // tạm fix cứng để test chức năng add
-        callableStatement.setString(10,object.getCoverImg());
+        CallableStatement callableStatement = connection.getConnection().prepareCall("{ call addRecipe(?,?,?,?,?,?,?,?)}");
+        callableStatement.setString("title",object.getTitle());
+        callableStatement.setString("description",object.getDescription());
+        callableStatement.setString("ingredient",object.getIngredient());
+        callableStatement.setInt("difficulty",object.getDifficulty());
+        callableStatement.setFloat("cookTime",object.getCookTime());
+        callableStatement.setInt("yield",object.getYield());
+        Category category = object.getCategoryId();
+        callableStatement.setInt("categoryId",category.getCategoryId());
+        callableStatement.setString("coverImg","No Image"); // Set tạm để Test
         int row = callableStatement.executeUpdate();
         System.out.println(row);
     }

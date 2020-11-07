@@ -22,6 +22,9 @@ public class RecipeServlet extends HttpServlet {
     iServiceRecipeImpl iServiceRecipe = new iServiceRecipeImpl();
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
+        response.setContentType("text/html; charset=UTF-8");
         String action = request.getParameter("action");
         if (action == null) {
             action = "";
@@ -37,6 +40,9 @@ public class RecipeServlet extends HttpServlet {
 
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
+        response.setContentType("text/html; charset=UTF-8");
         String action = request.getParameter("action");
         if (action == null) {
             action = "";
@@ -83,24 +89,17 @@ public class RecipeServlet extends HttpServlet {
         System.out.println(ingredient);
         int difficulty = Integer.parseInt(request.getParameter("difficulty"));
         System.out.println("difficulty"+difficulty);
-        String equipment = request.getParameter("equipment");
-        System.out.println("equipment" + equipment);
-        float prepareTime = Float.parseFloat(request.getParameter("prepareTime"));
-        System.out.println("prepareTime" + prepareTime);
         float cookTime = Float.parseFloat(request.getParameter("cookTime"));
         System.out.println("cookTime"+cookTime);
-        float waitTime = Float.parseFloat(request.getParameter("waitTime"));
-        System.out.println("waitTime" + waitTime);
         int yield = Integer.parseInt(request.getParameter("yield"));
         System.out.println("yield"+yield);
         int categoryId = Integer.parseInt(request.getParameter("category"));
         System.out.println("categoryId: "+ categoryId);
-//        String coverImg = request.getParameter("coverImg");
-//        System.out.println("Cover img: " + coverImg);
         Category category = iServiceCategory.findById(categoryId);
         System.out.println(category);
-        Recipe recipe = new Recipe(title, description, ingredient, difficulty,
-                prepareTime, cookTime, waitTime, yield, equipment, category);
+        //        String coverImg = request.getParameter("coverImg");
+//        System.out.println("Cover img: " + coverImg);
+        Recipe recipe = new Recipe(title, description, ingredient, difficulty, cookTime, yield, category);
         System.out.println(recipe);
         try {
             iServiceRecipe.add(recipe);
@@ -121,6 +120,7 @@ public class RecipeServlet extends HttpServlet {
     }
 
     private void displayRecipeList(HttpServletRequest request, HttpServletResponse response) {
+
         List<Recipe> recipeList = new ArrayList<>();
         try {
             recipeList = iServiceRecipe.findAll();

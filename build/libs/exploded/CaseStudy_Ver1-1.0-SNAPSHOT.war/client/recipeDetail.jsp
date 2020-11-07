@@ -13,5 +13,6 @@
 </head>
 <body>
 <c:out value="${recipe}"></c:out>
+<%--đã chạy--%>
 </body>
 </html>

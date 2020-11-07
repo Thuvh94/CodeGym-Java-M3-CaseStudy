@@ -54,9 +54,11 @@ public class iServiceCategoryImpl implements iService<Category> {
             PreparedStatement preparedStatement = connection.getConnection().prepareStatement(FIND_CATEGORY_BY_ID);
             preparedStatement.setInt(1,id);
             ResultSet resultSet = preparedStatement.executeQuery();
-            int categoryId = resultSet.getInt("categoryId");
-            String categoryName = resultSet.getString("categoryName");
-            category = new Category(categoryId,categoryName);
+            while(resultSet.next()){
+                int categoryId = resultSet.getInt("categoryId");
+                String categoryName = resultSet.getString("categoryName");
+                category = new Category(categoryId,categoryName);
+            }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         } catch (ClassNotFoundException e) {

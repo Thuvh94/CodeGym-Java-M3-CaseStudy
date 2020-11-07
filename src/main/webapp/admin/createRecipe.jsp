@@ -36,19 +36,9 @@
                    placeholder="Ví dụ: 125 gram sữa tươi không đường">
         </div>
         <div class="form-group row">
-            <label for="prepareTime" class="col-4 col-form-label">Thời gian chuẩn bị </label>
-            <div class="col-2">
-                <input class="form-control" type="number" id="prepareTime" name="prepareTime">
-            </div>
             <label for="cookTime" class="col-4 col-form-label">Thời gian nấu/nướng </label>
             <div class="col-2">
                 <input class="form-control" type="number" id="cookTime" name="cookTime">
-            </div>
-        </div>
-        <div class="form-group row">
-            <label for="waitTime" class="col-4 col-form-label">Thời gian chờ </label>
-            <div class="col-2">
-                <input class="form-control" type="number" id="waitTime" name="waitTime">
             </div>
             <label for="yield" class="col-4 col-form-label">Khẩu phần</label>
             <div class="col-2">
@@ -72,12 +62,6 @@
             </select>
         </div>
         <%--        --%>
-        <div class="form-group row">
-            <label for="equipment" class="col-4 col-form-label">Thiết bị</label>
-            <div class="col-6">
-                <input class="form-control" type="text" id="equipment" placeholder="Ví dụ: Lò nướng">
-            </div>
-        </div>
         <button type="submit" class="btn btn-primary btn-lg">Submit</button>
     </form>
 </div>
