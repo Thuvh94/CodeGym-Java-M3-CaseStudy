@@ -8,4 +8,5 @@ public interface iService<T> {
     void add(T object) throws SQLException, ClassNotFoundException;
     void update (int id, T object) throws SQLException, ClassNotFoundException;
     void delete(int id) throws SQLException, ClassNotFoundException;
+    T findById (int id);
 }

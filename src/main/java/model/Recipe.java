@@ -13,13 +13,47 @@ public class Recipe {
     private float waitingTime;
     private int yield;
     private String equipment;
-    private int categoryId;
+    private Category categoryId;
     private Timestamp publishedAt;
     private Timestamp createdAt;
     private Timestamp updatedAt;
     private String coverImg;
     private int status;
     private int writerId;
+
+    public Recipe(String title, String description, String ingredient, int difficulty, float prepareTime, float cookTime, float waitingTime, int yield, String equipment, Category categoryId, String coverImg) {
+        this.title = title;
+        this.description = description;
+        this.ingredient = ingredient;
+        this.difficulty = difficulty;
+        this.prepareTime = prepareTime;
+        this.cookTime = cookTime;
+        this.waitingTime = waitingTime;
+        this.yield = yield;
+        this.equipment = equipment;
+        this.categoryId = categoryId;
+        this.coverImg = coverImg;
+    }
+
+    public Recipe(int recipeId, String title, String description, String ingredient, int difficulty, float prepareTime, float cookTime, float waitingTime, int yield, String equipment, Category categoryId, Timestamp publishedAt, Timestamp createdAt, Timestamp updatedAt, String coverImg, int status, int writerId) {
+        this.recipeId = recipeId;
+        this.title = title;
+        this.description = description;
+        this.ingredient = ingredient;
+        this.difficulty = difficulty;
+        this.prepareTime = prepareTime;
+        this.cookTime = cookTime;
+        this.waitingTime = waitingTime;
+        this.yield = yield;
+        this.equipment = equipment;
+        this.categoryId = categoryId;
+        this.publishedAt = publishedAt;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+        this.coverImg = coverImg;
+        this.status = status;
+        this.writerId = writerId;
+    }
 
     public int getRecipeId() {
         return recipeId;
@@ -101,11 +135,11 @@ public class Recipe {
         this.equipment = equipment;
     }
 
-    public int getCategoryId() {
+    public Category getCategoryId() {
         return categoryId;
     }
 
-    public void setCategoryId(int categoryId) {
+    public void setCategoryId(Category categoryId) {
         this.categoryId = categoryId;
     }
 

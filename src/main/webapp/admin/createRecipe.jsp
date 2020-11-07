@@ -16,11 +16,12 @@
 </head>
 <body>
 <div class="container">
-    <form>
-<%--        <label class="custom-file">--%>
-<%--            <input type="file" id="file" class="custom-file-input" placeholder="Chọn File">--%>
-<%--            <span class="custom-file-control"></span>--%>
-<%--        </label>--%>
+    <h1>Nhập công thức</h1>
+    <form method="post">
+        <div class="form-group">
+            <label for="coverImg">Chọn ảnh đại diện:</label>
+            <input type="file" id="coverImg" name="coverImg">
+        </div>
         <div class="form-group">
             <label for="title">Nhập tiêu đề</label>
             <input type="text" name="title" class="form-control" id="title" placeholder="Nhập tiêu đề">
@@ -57,13 +58,27 @@
         <div class="form-group row">
             <label for="difficulty" class="col-4 col-form-label">Độ khó</label>
             <select class="col-6 custom-select" id="difficulty" name="difficulty">
-                <option selected>Mở danh sách để chọn độ khó</option>
-                <option value="1">Dễ</option>
+                <option selected value="1">Dễ</option>
                 <option value="2">Trung bình</option>
                 <option value="3">Khó</option>
             </select>
         </div>
-
+        <div class="form-group row">
+            <label for="category" class="col-4 col-form-label">Danh mục bánh</label>
+            <select class="col-6 custom-select" name="category" id="category">
+                <c:forEach var="category" items="${categoryList}">
+                    <option value="${category.getCategoryId()}"><c:out value="${category.getCategoryName()}"/></option>
+                </c:forEach>
+            </select>
+        </div>
+        <%--        --%>
+        <div class="form-group row">
+            <label for="equipment" class="col-4 col-form-label">Thiết bị</label>
+            <div class="col-6">
+                <input class="form-control" type="text" id="equipment" placeholder="Ví dụ: Lò nướng">
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary btn-lg">Submit</button>
     </form>
 </div>
 
