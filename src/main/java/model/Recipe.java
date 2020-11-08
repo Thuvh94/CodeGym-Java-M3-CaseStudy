@@ -1,5 +1,6 @@
 package model;
 
+import java.io.File;
 import java.sql.Timestamp;
 
 public class Recipe {
@@ -16,7 +17,7 @@ public class Recipe {
     private String coverImg;
     private int writerId;
 
-    public Recipe(String title, String description, String ingredient, int difficulty, float cookTime,int yield, Category categoryId) {
+    public Recipe(String title, String description, String ingredient, int difficulty, float cookTime, int yield, Category categoryId, String coverImg) {
         this.title = title;
         this.description = description;
         this.ingredient = ingredient;
@@ -24,10 +25,10 @@ public class Recipe {
         this.cookTime = cookTime;
         this.yield = yield;
         this.categoryId = categoryId;
-//        this.coverImg = coverImg;
+        this.coverImg = coverImg;
     }
 
-    public Recipe(int recipeId, String title, String description, String ingredient, int difficulty, float cookTime, int yield,Category categoryId, Timestamp publishedAt, Timestamp createdAt, String coverImg, int writerId) {
+    public Recipe(int recipeId, String title, String description, String ingredient, int difficulty, float cookTime, int yield, Category categoryId, Timestamp publishedAt, Timestamp createdAt, String coverImg, int writerId) {
         this.recipeId = recipeId;
         this.title = title;
         this.description = description;
@@ -39,6 +40,19 @@ public class Recipe {
         this.publishedAt = publishedAt;
         this.createdAt = createdAt;
         this.coverImg = coverImg;
+        this.writerId = writerId;
+    }
+    public Recipe(int recipeId, String title, String description, String ingredient, int difficulty, float cookTime, int yield, Category categoryId, Timestamp publishedAt, Timestamp createdAt,int writerId) {
+        this.recipeId = recipeId;
+        this.title = title;
+        this.description = description;
+        this.ingredient = ingredient;
+        this.difficulty = difficulty;
+        this.cookTime = cookTime;
+        this.yield = yield;
+        this.categoryId = categoryId;
+        this.publishedAt = publishedAt;
+        this.createdAt = createdAt;
         this.writerId = writerId;
     }
 

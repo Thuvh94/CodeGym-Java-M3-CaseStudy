@@ -3,24 +3,35 @@ package controller;
 import model.Category;
 import model.CookStep;
 import model.Recipe;
+import service.Connection;
 import service.iServiceCategoryImpl;
+import service.iServiceCookStep;
 import service.iServiceRecipeImpl;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Paths;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
 @WebServlet(name = "RecipeServlet", urlPatterns = "/FoodBlog")
+@MultipartConfig
 public class RecipeServlet extends HttpServlet {
     iServiceCategoryImpl iServiceCategory = new iServiceCategoryImpl();
     iServiceRecipeImpl iServiceRecipe = new iServiceRecipeImpl();
+    iServiceCookStep serviceCookStep = new iServiceCookStep();
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
@@ -32,7 +43,13 @@ public class RecipeServlet extends HttpServlet {
         }
         switch (action) {
             case "create":
-                addRecipe(request, response);
+                try {
+                    addRecipe(request, response);
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
                 break;
             case "update":
                 updateRecipe(request, response);
@@ -41,7 +58,6 @@ public class RecipeServlet extends HttpServlet {
                 break;
         }
     }
-
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
@@ -107,7 +123,7 @@ public class RecipeServlet extends HttpServlet {
         }
     }
 
-    private void addRecipe(HttpServletRequest request, HttpServletResponse response) {
+    private void addRecipe(HttpServletRequest request, HttpServletResponse response) throws SQLException, ClassNotFoundException {
         System.out.println("add recipe");
         String title = request.getParameter("title");
         System.out.println(title);
@@ -125,13 +141,10 @@ public class RecipeServlet extends HttpServlet {
         System.out.println("categoryId: " + categoryId);
         Category category = iServiceCategory.findById(categoryId);
         System.out.println(category);
-        //        String coverImg = request.getParameter("coverImg");
-//        System.out.println("Cover img: " + coverImg);
-        Recipe recipe = new Recipe(title, description, ingredient, difficulty, cookTime, yield, category);
+        // Xử lý ảnh cover photo
+        String coverImg = request.getParameter("coverImg");
+        Recipe recipe = new Recipe(title, description, ingredient, difficulty, cookTime, yield, category, coverImg);
         System.out.println(recipe);
-        String cookstepContent = request.getParameter("cookStep");
-        System.out.println(cookstepContent);
-
         try {
             iServiceRecipe.add(recipe);
         } catch (SQLException throwables) {
@@ -139,8 +152,25 @@ public class RecipeServlet extends HttpServlet {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
+
+        Connection connection = new Connection();
+        Statement st = connection.getConnection().createStatement();
+        ResultSet resultSet = st.executeQuery("SELECT recipeId FROM recipe ORDER BY recipeId DESC LIMIT 1;");
+        int recipeId=0;
+        while (resultSet.next()){
+            recipeId = resultSet.getInt(1);
+        }
+        Recipe newestRecipe = iServiceRecipe.findById(recipeId);
+        String[] cookstepContent = request.getParameterValues("cookStep");
+        List<CookStep> cookStepList = new ArrayList<>();
+        for (int i = 0; i < cookstepContent.length; i++) {
+            cookStepList.add(new CookStep(newestRecipe,cookstepContent[i]));
+            serviceCookStep.add(new CookStep(newestRecipe,cookstepContent[i]));
+        }
+
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("admin/recipeDetail.jsp");
         request.setAttribute("recipe", recipe);
+        request.setAttribute("cookStepList",cookStepList);
         try {
             requestDispatcher.forward(request, response);
         } catch (ServletException e) {
@@ -213,9 +243,8 @@ public class RecipeServlet extends HttpServlet {
         System.out.println("categoryId: " + categoryId);
         Category category = iServiceCategory.findById(categoryId);
         System.out.println(category);
-        //        String coverImg = request.getParameter("coverImg");
-//        System.out.println("Cover img: " + coverImg);
-        Recipe recipe = new Recipe(title, description, ingredient, difficulty, cookTime, yield, category);
+        String coverImg = request.getParameter("coverImg");
+        Recipe recipe = new Recipe(title, description, ingredient, difficulty, cookTime, yield, category, coverImg);
         System.out.println(recipe);
         try {
             iServiceRecipe.update(id, recipe);

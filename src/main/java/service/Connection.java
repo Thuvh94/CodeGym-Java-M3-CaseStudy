@@ -8,7 +8,7 @@ public class Connection {
     private static final String USENAME = "root";
     private static final String PASSWORD = "Thuvh2508!";
 
-    protected java.sql.Connection getConnection() throws ClassNotFoundException, SQLException {
+    public java.sql.Connection getConnection() throws ClassNotFoundException, SQLException {
         java.sql.Connection connection = null;
         Class.forName("com.mysql.jdbc.Driver");
         connection = DriverManager.getConnection(URL,USENAME,PASSWORD);

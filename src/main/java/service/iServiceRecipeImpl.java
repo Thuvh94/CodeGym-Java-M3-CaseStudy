@@ -3,6 +3,7 @@ package service;
 import model.Category;
 import model.Recipe;
 
+import java.io.*;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +19,7 @@ public class iServiceRecipeImpl implements iService<Recipe> {
         Connection connection = new Connection();
         Statement statement = connection.getConnection().createStatement();
         ResultSet resultSet = statement.executeQuery(SELECT_ALL_RECIPE);
+
         while (resultSet.next()){
             int recipeId = resultSet.getInt("recipeId");
             String title = resultSet.getString("title");
@@ -31,9 +33,8 @@ public class iServiceRecipeImpl implements iService<Recipe> {
             Category category = categoryImpl.findById(categoryId);
             Timestamp publishedAt = resultSet.getTimestamp("publishedAt");
             Timestamp createdAt = resultSet.getTimestamp("createdAt");
-            String coverImg = resultSet.getString("coverImg");
             int writerId = resultSet.getInt("writerId");
-            recipeList.add(new Recipe( recipeId, title, description, ingredient, difficulty, cookTime,yield,category, publishedAt, createdAt, coverImg, writerId)) ;
+            recipeList.add(new Recipe( recipeId, title, description, ingredient, difficulty, cookTime,yield,category, publishedAt, createdAt,writerId)) ;
         }
         return recipeList;
     }
@@ -50,9 +51,10 @@ public class iServiceRecipeImpl implements iService<Recipe> {
         callableStatement.setInt("yield",object.getYield());
         Category category = object.getCategoryId();
         callableStatement.setInt("categoryId",category.getCategoryId());
-        callableStatement.setString("coverImg","No Image"); // Set tạm để Test
+        callableStatement.setString("coverImg", "noImage"); // Để test tạm
         int row = callableStatement.executeUpdate();
         System.out.println(row);
+        callableStatement.close();
     }
 
     @Override
@@ -71,6 +73,7 @@ public class iServiceRecipeImpl implements iService<Recipe> {
         callableStatement.setString("coverImg","No Image"); // Set tạm để Test
         int row = callableStatement.executeUpdate();
         System.out.println(row);
+        callableStatement.close();
     }
 
     @Override
@@ -80,6 +83,7 @@ public class iServiceRecipeImpl implements iService<Recipe> {
         preparedStatement.setInt(1,id);
         int row = preparedStatement.executeUpdate();
         System.out.println(row);
+        preparedStatement.close();
     }
 
     @Override

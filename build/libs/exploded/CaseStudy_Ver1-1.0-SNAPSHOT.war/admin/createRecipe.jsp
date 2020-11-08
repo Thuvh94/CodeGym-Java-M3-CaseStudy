@@ -17,7 +17,7 @@
 <body>
 <div class="container">
     <h1>Nhập công thức</h1>
-    <form method="post">
+    <form method="post" enctype="multipart/form-data" >
         <div class="form-group">
             <label for="coverImg">Chọn ảnh đại diện:</label>
             <input type="file" id="coverImg" name="coverImg" accept="image/x-png,image/gif,image/jpeg">
@@ -75,7 +75,8 @@
                 <div class="form-group row">
                     <label class="col-md-4 control-label" for="media" style="float: right"></label>
                     <div class="col-md-8">
-                        <input type="file" id="media" name="media" class="input-file" accept="image/x-png,image/gif,image/jpeg" multiple>
+                        <input type="file" id="media" name="media" class="input-file"
+                               accept="image/x-png,image/gif,image/jpeg" multiple>
                         <div id="action_jsondisplay"></div>
                     </div>
                 </div>

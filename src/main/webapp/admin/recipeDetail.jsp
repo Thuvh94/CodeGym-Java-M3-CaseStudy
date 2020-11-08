@@ -38,14 +38,18 @@
         </li>
     </ul>
     <figure class="figure">
-        <img src="${recipe.getCoverImg()}" class="figure-img img-fluid rounded" alt="A generic square placeholder image with rounded corners in a figure.">
+        <img src="${recipe.getCoverImg()}" class="figure-img img-fluid rounded"
+             alt="A generic square placeholder image with rounded corners in a figure.">
     </figure>
-    <p ><em><c:out value="${recipe.getDescription()}"></c:out></em></p>
+    <p><em><c:out value="${recipe.getDescription()}"></c:out></em></p>
     <h5>Nguyên liệu</h5>
     <p><c:out value="${recipe.getIngredient()}"></c:out></p>
 
-    <h5>Công thức<h5>
-        <p>Chờ công thức</p>
+    <h5>Công thức</h5>
+            <c:forEach items="${cookStepList}" var="cookStep">
+            <p><c:out value="${cookStep.getTextContent()}"></c:out></p>
+            </c:forEach>
+
 
 </div>
 <%--<c:out value="${recipe}"></c:out>--%>
