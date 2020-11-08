@@ -24,16 +24,16 @@
         </div>
         <div class="form-group">
             <label for="title">Nhập tiêu đề</label>
-            <input type="text" name="title" class="form-control" id="title" placeholder="Nhập tiêu đề">
+            <input type="text" name="title" class="md-textarea form-control" id="title" placeholder="Nhập tiêu đề">
         </div>
         <div class="form-group">
             <label for="description">Mô tả</label>
-            <input type="text" name="description" class="form-control" id="description" placeholder="Mô tả">
+            <textarea name="description" class="form-control" id="description" placeholder="Mô tả" rows="5"></textarea>
         </div>
         <div class="form-group">
             <label for="ingredient">Nguyên liệu</label>
-            <input type="text" name="ingredient" class="form-control" id="ingredient"
-                   placeholder="Ví dụ: 125 gram sữa tươi không đường">
+            <textarea name="ingredient" class="form-control" id="ingredient"
+                      placeholder="Ví dụ: 125 gram sữa tươi không đường" rows="7"></textarea>
         </div>
         <div class="form-group row">
             <label for="cookTime" class="col-4 col-form-label">Thời gian nấu/nướng </label>
@@ -62,7 +62,7 @@
             </select>
         </div>
         <%--        --%>
-        <button type="submit" class="btn btn-primary btn-lg">Submit</button>
+        <button type="submit" class="btn btn-primary btn-lg" style="align-items: center">Submit</button>
     </form>
 </div>
 
