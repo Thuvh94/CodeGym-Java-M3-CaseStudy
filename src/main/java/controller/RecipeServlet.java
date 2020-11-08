@@ -1,6 +1,7 @@
 package controller;
 
 import model.Category;
+import model.CookStep;
 import model.Recipe;
 import service.iServiceCategoryImpl;
 import service.iServiceRecipeImpl;
@@ -110,6 +111,9 @@ public class RecipeServlet extends HttpServlet {
 //        System.out.println("Cover img: " + coverImg);
         Recipe recipe = new Recipe(title, description, ingredient, difficulty, cookTime, yield, category);
         System.out.println(recipe);
+        String cookstepContent = request.getParameter("cookStep");
+        System.out.println(cookstepContent);
+
         try {
             iServiceRecipe.add(recipe);
         } catch (SQLException throwables) {
@@ -206,6 +210,9 @@ public class RecipeServlet extends HttpServlet {
     }
 
     // Chức năng xóa Recipe
+//    private void confirmDeleteRecipe(HttpServletRequest request, HttpServletResponse response){
+//
+//    }
         private void deleteRecipe(HttpServletRequest request, HttpServletResponse response) {
         int id = Integer.parseInt(request.getParameter("id"));
             try {

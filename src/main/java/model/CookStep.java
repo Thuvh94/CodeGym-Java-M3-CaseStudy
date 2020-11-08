@@ -2,17 +2,20 @@ package model;
 
 public class CookStep {
     private int cookStepId;
-    private int recipeId;
-    private String stepName;
+    private Recipe recipeId;
     private String textContent;
 
     public CookStep() {
     }
 
-    public CookStep(int cookStepId, int recipeId, String stepName, String textContent) {
+    public CookStep(Recipe recipeId, String textContent) {
+        this.recipeId = recipeId;
+        this.textContent = textContent;
+    }
+
+    public CookStep(int cookStepId, Recipe recipeId, String textContent) {
         this.cookStepId = cookStepId;
         this.recipeId = recipeId;
-        this.stepName = stepName;
         this.textContent = textContent;
     }
 
@@ -24,20 +27,12 @@ public class CookStep {
         this.cookStepId = cookStepId;
     }
 
-    public int getRecipeId() {
+    public Recipe getRecipeId() {
         return recipeId;
     }
 
-    public void setRecipeId(int recipeId) {
+    public void setRecipeId(Recipe recipeId) {
         this.recipeId = recipeId;
-    }
-
-    public String getStepName() {
-        return stepName;
-    }
-
-    public void setStepName(String stepName) {
-        this.stepName = stepName;
     }
 
     public String getTextContent() {
@@ -46,5 +41,14 @@ public class CookStep {
 
     public void setTextContent(String textContent) {
         this.textContent = textContent;
+    }
+
+    @Override
+    public String toString() {
+        return "CookStep{" +
+                "cookStepId=" + cookStepId +
+                ", recipeId=" + recipeId +
+                ", textContent='" + textContent + '\'' +
+                '}';
     }
 }
