@@ -61,9 +61,38 @@
                 </c:forEach>
             </select>
         </div>
-        <%--        --%>
-        <button type="submit" class="btn btn-primary btn-lg" style="align-items: center">Submit</button>
+        <%--Phần cook Step--%>
+        <h3>Công thức</h3>
+        <div id="field">
+            <div id="field0">
+                <div class="form-group row">
+                    <c:set var="stepNum"  scope = "session" value="${1}"></c:set>
+                    <label class="col-md-4 control-label" for="cookStep" style="float: right">Bước <c:out value="${stepNum}"></c:out></label>
+                    <div class="col-md-8">
+                        <textarea id="cookStep" name="cookStep" placeholder="" class="form-control input-md"></textarea>
+                    </div>
+                </div>
+                <!-- File Button -->
+                <div class="form-group row">
+                    <label class="col-md-4 control-label" for="media" style="float: right">Ảnh</label>
+                    <div class="col-md-8">
+                        <input type="file" id="media" name="media" class="input-file" accept=".txt,.json">
+                        <div id="action_jsondisplay"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-4"></div>
+                <div class="col-md-8">
+                    <button id="add-more" name="add-more" class="btn btn-primary">Thêm bước</button>
+                </div>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-lg" style="float: right">Submit</button>
     </form>
+
+
 </div>
 
 
@@ -76,5 +105,48 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"
         integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
         crossorigin="anonymous"></script>
+<script>
+    $(document).ready(function () {
+        //@naresh action dynamic childs
+        var next = 0;
+        $("#add-more").click(function (e) {
+            e.preventDefault();
+            var addto = "#field" + next;
+            var addRemove = "#field" + (next);
+            next = next + 1;
+            var newIn = ' <div id="field' + next + '" name="field' + next + '">' +
+                '<!-- Text input--><div class="form-group row">\n' +
+                '                    <label class="col-md-4 control-label" for="cookStep" style="float: right">Bước <c:out value="${stepNum+1}"/></label>\n' +
+                '                    <div class="col-md-8">\n' +
+                '                        <textarea id="cookStep" name="cookStep" placeholder="" class="form-control input-md"></textarea>\n' +
+                '                    </div>\n' +
+                '                </div>' +
+                '<!-- File Button -->  <div class="form-group row">\n' +
+                '                    <label class="col-md-4 control-label" for="media" style="float: right">Ảnh</label>\n' +
+                '                    <div class="col-md-8">\n' +
+                '                        <input type="file" id="media" name="media" class="input-file" accept=".txt,.json">\n' +
+                '                        <div id="action_jsondisplay"></div>\n' +
+                '                    </div>\n' +
+                '                </div>';
+
+            var newInput = $(newIn);
+            var removeBtn = '<button id="remove' + (next - 1) + '" class="btn btn-danger remove-me" >Remove</button></div></div><div id="field">';
+            var removeButton = $(removeBtn);
+            $(addto).after(newInput);
+            $(addRemove).after(removeButton);
+            $("#field" + next).attr('data-source', $(addto).attr('data-source'));
+            $("#count").val(next);
+
+            $('.remove-me').click(function (e) {
+                e.preventDefault();
+                var fieldNum = this.id.charAt(this.id.length - 1);
+                var fieldID = "#field" + fieldNum;
+                $(this).remove();
+                $(fieldID).remove();
+            });
+        });
+
+    });
+</script>
 </body>
 </html>
