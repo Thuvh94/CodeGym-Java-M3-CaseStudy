@@ -61,6 +61,9 @@ public class RecipeServlet extends HttpServlet {
             case "delete":
                 deleteRecipe(request, response);
                 break;
+            case "view":
+                viewDetailRecipe(request,response);
+                break;
             default:
                 displayRecipeList(request, response);
                 break;
@@ -68,7 +71,22 @@ public class RecipeServlet extends HttpServlet {
     }
 
 
+
+
     // Chức năng hiển thị chi tiết bài đăng
+    private void viewDetailRecipe(HttpServletRequest request, HttpServletResponse response) {
+        int id = Integer.parseInt(request.getParameter("id"));
+        Recipe recipe = iServiceRecipe.findById(id);
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("admin/recipeDetail.jsp");
+        request.setAttribute("recipe", recipe);
+        try {
+            requestDispatcher.forward(request, response);
+        } catch (ServletException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     // Chức năng tạo bài đăng
     private void showCreateForm(HttpServletRequest request, HttpServletResponse response) {

@@ -14,8 +14,16 @@
     <title>Title</title>
 </head>
 <body>
-<h1>Recipe List</h1>
+<nav class="navbar navbar-light bg-light">
+    <form class="form-inline">
+        <h1 class="col-8">Recipe List</h1>
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+</nav>
 
+<a href="/FoodBlog?action=create" class="btn btn-success btn-lg active"
+   role="button" aria-pressed="true">Thêm bài đăng</a>
 <table class="table">
     <thead class="thead-dark">
     <tr>
@@ -31,7 +39,7 @@
     <c:forEach var="recipe" items="${recipeList}">
         <tr>
             <th scope="row"><c:out value="${recipe.getRecipeId()}"/></th>
-            <td><c:out value="${recipe.getTitle()}"/></td>
+            <td><a href="/FoodBlog?action=view&id=${recipe.getRecipeId()}"><c:out value="${recipe.getTitle()}"/></a></td>
             <td><c:out value="${recipe.getCreatedAt()}"/></td>
             <td><c:out value="${'Writer'}"/></td>
             <td>
@@ -66,6 +74,5 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"
         integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
         crossorigin="anonymous"></script>
-
 </body>
 </html>
