@@ -6,7 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
       integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
@@ -47,9 +47,9 @@
     <p><c:out value="${recipe.getIngredient()}"></c:out></p>
 
     <h5>Công thức</h5>
-            <c:forEach items="${cookStepList}" var="cookStep">
-            <p><c:out value="${cookStep.getTextContent()}"></c:out></p>
-            </c:forEach>
+    <c:forEach items="${cookStepList}" var="cookStep">
+        <p><c:out value="${cookStep.getTextContent()}"></c:out></p>
+    </c:forEach>
 
 
 </div>

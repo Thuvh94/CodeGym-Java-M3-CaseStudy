@@ -27,7 +27,8 @@
         </div>
         <div class="form-group">
             <label for="description">Mô tả</label>
-            <input type="text" name="description" class="form-control" id="description" value="${editRecipe.getDescription()}">
+            <input type="text" name="description" class="form-control" id="description"
+                   value="${editRecipe.getDescription()}">
         </div>
         <div class="form-group">
             <label for="ingredient">Nguyên liệu</label>
@@ -37,7 +38,8 @@
         <div class="form-group row">
             <label for="cookTime" class="col-4 col-form-label">Thời gian nấu/nướng </label>
             <div class="col-2">
-                <input class="form-control" type="number" id="cookTime" name="cookTime" value="${editRecipe.getCookTime()}">
+                <input class="form-control" type="number" id="cookTime" name="cookTime"
+                       value="${editRecipe.getCookTime()}">
             </div>
             <label for="yield" class="col-4 col-form-label">Khẩu phần</label>
             <div class="col-2">
@@ -61,10 +63,17 @@
             </select>
         </div>
         <h5>Công thức</h5>
-<%--        <c:forEach items="${cookStepList}" var="cookStep">--%>
-<%--            <p><c:out value="${cookStep.getTextContent()}"></c:out></p>--%>
-<%--        </c:forEach>--%>
-        <button type="submit" class="btn btn-primary btn-lg">Submit</button>
+        <c:forEach items="${cookStepList}" var="cookStep">
+            <div class="form-group">
+                <input class="col-12 form-control" type="text" value="${cookStep.getTextContent()}">
+                    <%--            <a href="/FoodBlog?action=update&id=${recipe.getRecipeId()}" class="btn btn-primary btn-sm active"--%>
+                    <%--               role="button" aria-pressed="true">Chỉnh sửa</a>--%>
+            </div>
+        </c:forEach>
+        <div>
+            <button type="submit" class="btn btn-primary btn-lg">Submit</button>
+        </div>
+
     </form>
 </div>
 

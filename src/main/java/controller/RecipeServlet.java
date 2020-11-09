@@ -15,11 +15,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
-import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Paths;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -94,7 +90,7 @@ public class RecipeServlet extends HttpServlet {
         int id = Integer.parseInt(request.getParameter("id"));
         Recipe recipe = iServiceRecipe.findById(id);
         try {
-            List<CookStep> cookStepList = serviceCookStep.findAll(recipe);
+            List<CookStep> cookStepList = serviceCookStep.findAllByRecipeId(recipe);
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("admin/recipeDetail.jsp");
             request.setAttribute("recipe", recipe);
             request.setAttribute("cookStepList",cookStepList);
@@ -210,20 +206,21 @@ public class RecipeServlet extends HttpServlet {
     // Chức năng update recipe
     private void showUpdateForm(HttpServletRequest request, HttpServletResponse response) {
         List<Category> categoryList = null;
+        List<CookStep> cookStepList = null;
         try {
             categoryList = iServiceCategory.findAll();
+            int id = Integer.parseInt(request.getParameter("id"));
+            Recipe recipe = iServiceRecipe.findById(id);
+            cookStepList = serviceCookStep.findAllByRecipeId(recipe);
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher("admin/updateRecipe.jsp");
+            request.setAttribute("editRecipe", recipe);
+            request.setAttribute("categoryList", categoryList);
+            request.setAttribute("cookStepList",cookStepList);
+            requestDispatcher.forward(request, response);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
-        }
-        int id = Integer.parseInt(request.getParameter("id"));
-        Recipe recipe = iServiceRecipe.findById(id);
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("admin/updateRecipe.jsp");
-        request.setAttribute("editRecipe", recipe);
-        request.setAttribute("categoryList", categoryList);
-        try {
-            requestDispatcher.forward(request, response);
         } catch (ServletException e) {
             e.printStackTrace();
         } catch (IOException e) {

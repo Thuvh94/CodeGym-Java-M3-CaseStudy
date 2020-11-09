@@ -10,7 +10,7 @@ import java.util.List;
 
 public class iServiceCookStep implements CookStepService {
         private static final String SELECT_ALL_COOKSTEP = "select * from cookstep where recipeId=?";
-    private static final String DELETE_COOKSTEP = "delete from cookstep where cookStepId = ?;";
+//    private static final String DELETE_COOKSTEP = "delete from cookstep where cookStepId = ?;";
 
 //    @Override
 //    public List<CookStep> findAll() throws SQLException, ClassNotFoundException {
@@ -31,7 +31,7 @@ public class iServiceCookStep implements CookStepService {
 //    }
 
     @Override
-    public List<CookStep> findAll(Recipe recipe) throws SQLException, ClassNotFoundException {
+    public List<CookStep> findAllByRecipeId(Recipe recipe) throws SQLException, ClassNotFoundException {
         List<CookStep> cookStepList = new ArrayList<>();
         Connection connection = new Connection();
         PreparedStatement preparedStatement = connection.getConnection().prepareStatement(SELECT_ALL_COOKSTEP);
@@ -39,10 +39,8 @@ public class iServiceCookStep implements CookStepService {
         ResultSet resultSet = preparedStatement.executeQuery();
         while (resultSet.next()){
             int cookStepId = resultSet.getInt("cookStepId");
-//            int recipeId = resultSet.getInt("recipeId");
             String textContent = resultSet.getString("textContent");
             iServiceRecipeImpl serviceRecipe = new iServiceRecipeImpl();
-//            Recipe recipe = serviceRecipe.findById(recipeId);
             cookStepList.add(new CookStep(cookStepId,recipe,textContent));
         }
         return cookStepList;
@@ -64,15 +62,15 @@ public class iServiceCookStep implements CookStepService {
 
     }
 
-    @Override
-    public void delete(Recipe recipe) throws SQLException, ClassNotFoundException {
+//    @Override
+//    public void delete(Recipe recipe) throws SQLException, ClassNotFoundException {
+//
+//    }
 
-    }
-
-    @Override
-    public CookStep findById(int id) {
-        return null;
-    }
+//    @Override
+//    public CookStep findById(int id) {
+//        return null;
+//    }
 
 //    @Override
 //    public void update(int id, CookStep object) throws SQLException, ClassNotFoundException {
