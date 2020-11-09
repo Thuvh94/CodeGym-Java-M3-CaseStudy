@@ -1,9 +1,9 @@
 package controller;
 
 import model.Recipe;
-import service.iServiceCategoryImpl;
-import service.iServiceCookStep;
-import service.iServiceRecipeImpl;
+import service.CategoryServiceImpl;
+import service.CookStepServiceImpl;
+import service.RecipeServiceImpl;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -18,9 +18,9 @@ import java.util.List;
 
 @WebServlet(name = "ClientSideServlet", urlPatterns = "/RecipeBlog")
 public class ClientSideServlet extends HttpServlet {
-    iServiceCategoryImpl iServiceCategory = new iServiceCategoryImpl();
-    iServiceRecipeImpl iServiceRecipe = new iServiceRecipeImpl();
-    iServiceCookStep serviceCookStep = new iServiceCookStep();
+    CategoryServiceImpl iServiceCategory = new CategoryServiceImpl();
+    RecipeServiceImpl iServiceRecipe = new RecipeServiceImpl();
+    CookStepServiceImpl serviceCookStep = new CookStepServiceImpl();
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
     }

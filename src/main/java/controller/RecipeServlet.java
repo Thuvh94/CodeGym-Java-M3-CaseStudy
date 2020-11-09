@@ -4,9 +4,9 @@ import model.Category;
 import model.CookStep;
 import model.Recipe;
 import service.Connection;
-import service.iServiceCategoryImpl;
-import service.iServiceCookStep;
-import service.iServiceRecipeImpl;
+import service.CategoryServiceImpl;
+import service.CookStepServiceImpl;
+import service.RecipeServiceImpl;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -25,9 +25,9 @@ import java.util.List;
 @WebServlet(name = "RecipeServlet", urlPatterns = "/FoodBlog")
 @MultipartConfig
 public class RecipeServlet extends HttpServlet {
-    iServiceCategoryImpl iServiceCategory = new iServiceCategoryImpl();
-    iServiceRecipeImpl iServiceRecipe = new iServiceRecipeImpl();
-    iServiceCookStep serviceCookStep = new iServiceCookStep();
+    CategoryServiceImpl iServiceCategory = new CategoryServiceImpl();
+    RecipeServiceImpl iServiceRecipe = new RecipeServiceImpl();
+    CookStepServiceImpl serviceCookStep = new CookStepServiceImpl();
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
@@ -76,6 +76,8 @@ public class RecipeServlet extends HttpServlet {
             case "view":
                 viewDetailRecipe(request, response);
                 break;
+            case "viewByCategory":
+                viewRecipesByCategory(request,response);
             default:
                 displayRecipeList(request, response);
                 break;
@@ -183,6 +185,7 @@ public class RecipeServlet extends HttpServlet {
     // Show list recipe
     private void displayRecipeList(HttpServletRequest request, HttpServletResponse response) {
         List<Recipe> recipeList = new ArrayList<>();
+        List<Category> categoryList = new ArrayList<>();
         String search = request.getParameter("search");
         if (search == null) {
             try {
@@ -195,8 +198,16 @@ public class RecipeServlet extends HttpServlet {
         } else {
             recipeList = iServiceRecipe.findByName(search);
         }
+        try {
+            categoryList = iServiceCategory.findAll();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("admin/recipeList.jsp");
         request.setAttribute("recipeList", recipeList);
+        request.setAttribute("categoryList",categoryList);
         try {
             requestDispatcher.forward(request, response);
         } catch (ServletException e) {
@@ -286,4 +297,32 @@ public class RecipeServlet extends HttpServlet {
         }
         displayRecipeList(request, response);
     }
+
+
+    private void viewRecipesByCategory(HttpServletRequest request, HttpServletResponse response) {
+        int categoryId = Integer.parseInt(request.getParameter("CategoryId"));
+        List<Category> categoryList = null;
+        try {
+            categoryList = iServiceCategory.findAll();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        Category category = iServiceCategory.findById(categoryId);
+        String categoryName = category.getCategoryName();
+        List<Recipe> recipeList = iServiceRecipe.findByCategory(category);
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("admin/recipeListByCategory.jsp");
+        request.setAttribute("recipeList", recipeList);
+        request.setAttribute("categoryList",categoryList);
+        request.setAttribute("categoryName",categoryName);
+        try {
+            requestDispatcher.forward(request, response);
+        } catch (ServletException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
