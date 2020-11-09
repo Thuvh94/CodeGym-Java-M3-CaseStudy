@@ -65,11 +65,17 @@
         <h5>Công thức</h5>
         <c:forEach items="${cookStepList}" var="cookStep">
             <div class="form-group">
-                <input class="col-12 form-control" type="text" value="${cookStep.getTextContent()}">
-                    <%--            <a href="/FoodBlog?action=update&id=${recipe.getRecipeId()}" class="btn btn-primary btn-sm active"--%>
-                    <%--               role="button" aria-pressed="true">Chỉnh sửa</a>--%>
+                <textarea class="form-control" name="cookStep" ><c:out value="${cookStep.getTextContent()}"></c:out></textarea>
+                <a href="" class="btn btn-danger btn-sm active col-1"
+                   role="button" aria-pressed="true" style="float: right">Xóa</a><br>
+                    <%--                <p name="cookStep">${cookStep.getTextContent()}</p>--%>
+                    <%--                <a href="" class="btn btn-danger btn-sm active col-1"--%>
+                    <%--                   role="button" aria-pressed="true">Xóa</a>--%>
             </div>
         </c:forEach>
+        <%--        Button thêm ô để ghi công thức--%>
+
+
         <div>
             <button type="submit" class="btn btn-primary btn-lg">Submit</button>
         </div>
@@ -87,5 +93,6 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"
         integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
         crossorigin="anonymous"></script>
+
 </body>
 </html>

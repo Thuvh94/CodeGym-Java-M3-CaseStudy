@@ -117,4 +117,35 @@ public class iServiceRecipeImpl implements iService<Recipe> {
         }
         return recipe;
     }
+    public List<Recipe> findByName(String name){
+        List<Recipe> recipeList = new ArrayList<>();
+        Connection connection = new Connection();
+        CallableStatement callableStatement = null;
+        try {
+            callableStatement = connection.getConnection().prepareCall("{ call searchByName(?)}");
+            callableStatement.setString(1,name);
+            ResultSet resultSet = callableStatement.executeQuery();
+            while (resultSet.next()){
+                int recipeId = resultSet.getInt("recipeId");
+                String title = resultSet.getString("title");
+                String description = resultSet.getString("description");
+                String ingredient = resultSet.getString("ingredient");
+                int difficulty = resultSet.getInt("difficulty");
+                float cookTime = resultSet.getFloat("cookTime");
+                int yield = resultSet.getInt("yield");
+                int categoryId = resultSet.getInt("categoryId");
+                iServiceCategoryImpl categoryImpl = new iServiceCategoryImpl();
+                Category category = categoryImpl.findById(categoryId);
+                Timestamp publishedAt = resultSet.getTimestamp("publishedAt");
+                Timestamp createdAt = resultSet.getTimestamp("createdAt");
+                int writerId = resultSet.getInt("writerId");
+                recipeList.add(new Recipe( recipeId, title, description, ingredient, difficulty, cookTime,yield,category, publishedAt, createdAt,writerId)) ;
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return recipeList;
+    }
 }

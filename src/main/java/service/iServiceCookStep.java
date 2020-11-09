@@ -10,7 +10,7 @@ import java.util.List;
 
 public class iServiceCookStep implements CookStepService {
         private static final String SELECT_ALL_COOKSTEP = "select * from cookstep where recipeId=?";
-//    private static final String DELETE_COOKSTEP = "delete from cookstep where cookStepId = ?;";
+    private static final String DELETE_COOKSTEP = "delete from cookstep where recipeId = ?;";
 
 //    @Override
 //    public List<CookStep> findAll() throws SQLException, ClassNotFoundException {
@@ -57,15 +57,19 @@ public class iServiceCookStep implements CookStepService {
         System.out.println(row);
     }
 
-    @Override
-    public void update(Recipe recipe, CookStep object) throws SQLException, ClassNotFoundException {
-
-    }
-
 //    @Override
-//    public void delete(Recipe recipe) throws SQLException, ClassNotFoundException {
+//    public void update(Recipe recipe, CookStep object) throws SQLException, ClassNotFoundException {
 //
 //    }
+
+    @Override
+    public void deleteCookStepByRecipeId(Recipe recipe) throws SQLException, ClassNotFoundException {
+        Connection connection = new Connection();
+        PreparedStatement preparedStatement = connection.getConnection().prepareStatement(DELETE_COOKSTEP);
+        preparedStatement.setInt(1,recipe.getRecipeId());
+        int row = preparedStatement.executeUpdate();
+        System.out.println(row);
+    }
 
 //    @Override
 //    public CookStep findById(int id) {

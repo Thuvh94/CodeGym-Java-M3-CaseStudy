@@ -9,7 +9,7 @@ import java.util.List;
 public interface CookStepService{
     List<CookStep> findAllByRecipeId(Recipe recipe) throws SQLException, ClassNotFoundException;
     void add(CookStep object) throws SQLException, ClassNotFoundException;
-    void update (Recipe recipe, CookStep object) throws SQLException, ClassNotFoundException;
-//    void delete(Recipe recipe) throws SQLException, ClassNotFoundException;
+//    void update (Recipe recipe, CookStep object) throws SQLException, ClassNotFoundException;
+    void deleteCookStepByRecipeId(Recipe recipe) throws SQLException, ClassNotFoundException;
 //    CookStep findById (int id);
 }

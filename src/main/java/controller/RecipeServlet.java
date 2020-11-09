@@ -74,15 +74,13 @@ public class RecipeServlet extends HttpServlet {
                 deleteRecipe(request, response);
                 break;
             case "view":
-                viewDetailRecipe(request,response);
+                viewDetailRecipe(request, response);
                 break;
             default:
                 displayRecipeList(request, response);
                 break;
         }
     }
-
-
 
 
     // Chức năng hiển thị chi tiết bài đăng
@@ -93,15 +91,13 @@ public class RecipeServlet extends HttpServlet {
             List<CookStep> cookStepList = serviceCookStep.findAllByRecipeId(recipe);
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("admin/recipeDetail.jsp");
             request.setAttribute("recipe", recipe);
-            request.setAttribute("cookStepList",cookStepList);
+            request.setAttribute("cookStepList", cookStepList);
             requestDispatcher.forward(request, response);
-        }
-        catch (ServletException e) {
+        } catch (ServletException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
-        }
-        catch (SQLException throwables) {
+        } catch (SQLException throwables) {
             throwables.printStackTrace();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
@@ -160,21 +156,21 @@ public class RecipeServlet extends HttpServlet {
         Connection connection = new Connection();
         Statement st = connection.getConnection().createStatement();
         ResultSet resultSet = st.executeQuery("SELECT recipeId FROM recipe ORDER BY recipeId DESC LIMIT 1;");
-        int recipeId=0;
-        while (resultSet.next()){
+        int recipeId = 0;
+        while (resultSet.next()) {
             recipeId = resultSet.getInt(1);
         }
         Recipe newestRecipe = iServiceRecipe.findById(recipeId);
         String[] cookstepContent = request.getParameterValues("cookStep");
         List<CookStep> cookStepList = new ArrayList<>();
         for (int i = 0; i < cookstepContent.length; i++) {
-            cookStepList.add(new CookStep(newestRecipe,cookstepContent[i]));
-            serviceCookStep.add(new CookStep(newestRecipe,cookstepContent[i]));
+            cookStepList.add(new CookStep(newestRecipe, cookstepContent[i]));
+            serviceCookStep.add(new CookStep(newestRecipe, cookstepContent[i]));
         }
 
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("admin/recipeDetail.jsp");
         request.setAttribute("recipe", recipe);
-        request.setAttribute("cookStepList",cookStepList);
+        request.setAttribute("cookStepList", cookStepList);
         try {
             requestDispatcher.forward(request, response);
         } catch (ServletException e) {
@@ -187,15 +183,22 @@ public class RecipeServlet extends HttpServlet {
     // Show list recipe
     private void displayRecipeList(HttpServletRequest request, HttpServletResponse response) {
         List<Recipe> recipeList = new ArrayList<>();
+        String search = request.getParameter("search");
+        if (search == null) {
+            try {
+                recipeList = iServiceRecipe.findAll();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+        } else {
+            recipeList = iServiceRecipe.findByName(search);
+        }
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("admin/recipeList.jsp");
+        request.setAttribute("recipeList", recipeList);
         try {
-            recipeList = iServiceRecipe.findAll();
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher("admin/recipeList.jsp");
-            request.setAttribute("recipeList", recipeList);
             requestDispatcher.forward(request, response);
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
         } catch (ServletException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -215,7 +218,7 @@ public class RecipeServlet extends HttpServlet {
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("admin/updateRecipe.jsp");
             request.setAttribute("editRecipe", recipe);
             request.setAttribute("categoryList", categoryList);
-            request.setAttribute("cookStepList",cookStepList);
+            request.setAttribute("cookStepList", cookStepList);
             requestDispatcher.forward(request, response);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -251,6 +254,14 @@ public class RecipeServlet extends HttpServlet {
         Recipe recipe = new Recipe(title, description, ingredient, difficulty, cookTime, yield, category, coverImg);
         System.out.println(recipe);
         try {
+            Recipe editedRecipe = iServiceRecipe.findById(id);
+            serviceCookStep.deleteCookStepByRecipeId(editedRecipe);
+            String[] cookstepContent = request.getParameterValues("cookStep");
+            List<CookStep> cookStepList = new ArrayList<>();
+            for (int i = 0; i < cookstepContent.length; i++) {
+//                cookStepList.add(new CookStep(editedRecipe,cookstepContent[i]));
+                serviceCookStep.add(new CookStep(editedRecipe, cookstepContent[i]));
+            }
             iServiceRecipe.update(id, recipe);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -264,15 +275,15 @@ public class RecipeServlet extends HttpServlet {
 //    private void confirmDeleteRecipe(HttpServletRequest request, HttpServletResponse response){
 //
 //    }
-        private void deleteRecipe(HttpServletRequest request, HttpServletResponse response) {
+    private void deleteRecipe(HttpServletRequest request, HttpServletResponse response) {
         int id = Integer.parseInt(request.getParameter("id"));
-            try {
-                iServiceRecipe.delete(id);
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            }
-            displayRecipeList(request, response);
+        try {
+            iServiceRecipe.delete(id);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
         }
+        displayRecipeList(request, response);
+    }
 }
