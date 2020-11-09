@@ -93,13 +93,21 @@ public class RecipeServlet extends HttpServlet {
     private void viewDetailRecipe(HttpServletRequest request, HttpServletResponse response) {
         int id = Integer.parseInt(request.getParameter("id"));
         Recipe recipe = iServiceRecipe.findById(id);
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("admin/recipeDetail.jsp");
-        request.setAttribute("recipe", recipe);
         try {
+            List<CookStep> cookStepList = serviceCookStep.findAll(recipe);
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher("admin/recipeDetail.jsp");
+            request.setAttribute("recipe", recipe);
+            request.setAttribute("cookStepList",cookStepList);
             requestDispatcher.forward(request, response);
-        } catch (ServletException e) {
+        }
+        catch (ServletException e) {
             e.printStackTrace();
         } catch (IOException e) {
+            e.printStackTrace();
+        }
+        catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
     }
@@ -182,7 +190,6 @@ public class RecipeServlet extends HttpServlet {
 
     // Show list recipe
     private void displayRecipeList(HttpServletRequest request, HttpServletResponse response) {
-
         List<Recipe> recipeList = new ArrayList<>();
         try {
             recipeList = iServiceRecipe.findAll();

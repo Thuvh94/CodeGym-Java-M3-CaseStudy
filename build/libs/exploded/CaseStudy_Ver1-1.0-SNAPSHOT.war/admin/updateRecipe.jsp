@@ -60,7 +60,10 @@
                 </c:forEach>
             </select>
         </div>
-        <%--        --%>
+        <h5>Công thức</h5>
+<%--        <c:forEach items="${cookStepList}" var="cookStep">--%>
+<%--            <p><c:out value="${cookStep.getTextContent()}"></c:out></p>--%>
+<%--        </c:forEach>--%>
         <button type="submit" class="btn btn-primary btn-lg">Submit</button>
     </form>
 </div>
