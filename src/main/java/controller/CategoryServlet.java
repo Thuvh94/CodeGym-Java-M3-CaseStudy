@@ -32,11 +32,16 @@ public class CategoryServlet extends HttpServlet {
             case "update":
                 updateCategory(request, response);
                 break;
+            case "create":
+                addCategory(request,response);
+                break;
             default:
                 System.out.println("default");
                 break;
         }
     }
+
+
 
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -48,9 +53,6 @@ public class CategoryServlet extends HttpServlet {
             action = "";
         }
         switch (action) {
-            case "create":
-                showCreateForm(request, response);
-                break;
             default:
                 displayCategoryList(request, response);
                 break;
@@ -75,7 +77,10 @@ public class CategoryServlet extends HttpServlet {
             }
     }
 
-    private void showCreateForm(HttpServletRequest request, HttpServletResponse response) {
+    private void addCategory(HttpServletRequest request, HttpServletResponse response) {
+        String newName = request.getParameter("newInputName");
+        categoryService.add(newName);
+        displayCategoryList(request,response);
     }
 
     private void updateCategory(HttpServletRequest request, HttpServletResponse response) {

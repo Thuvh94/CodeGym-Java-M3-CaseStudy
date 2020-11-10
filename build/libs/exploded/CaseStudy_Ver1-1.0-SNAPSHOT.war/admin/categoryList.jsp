@@ -59,17 +59,14 @@
             <th scope="col">Tên mục</th>
             <th scope="col"></th>
             <th scope="col"></th>
-            <th>
-                <button type="button" class="btn btn-primary" data-toggle="modal"
-                        data-target="#createCategoryModal">Thêm mới</button>
-            </th>
         </tr>
         </thead>
         <tbody>
         <c:forEach var="category" items="${categoryList}">
             <tr>
                 <th scope="row"><c:out value="${category.getCategoryId()}"/></th>
-                <td><a href="/FoodBlog?action=viewByCategory&CategoryId=${category.getCategoryId()}"><c:out value="${category.getCategoryName()}"/></a></td>
+                <td><a href="/FoodBlog?action=viewByCategory&CategoryId=${category.getCategoryId()}"><c:out
+                        value="${category.getCategoryName()}"/></a></td>
                 <td>
                     <button type="button" class="btn btn-primary" data-toggle="modal"
                             data-target="#updateCategoryModal">
@@ -90,15 +87,17 @@
                                 <div class="modal-body">
                                     <p>Nhập tên mới:</p>
                                     <form method="post" action="/Category?action=update">
-                                    <div class="md-form mb-5">
-<%--                                        <input type="hidden" name="action" value="update">--%>
-                                        <input type="hidden" name="editedId" value="${category.getCategoryId()}">
-                                        <input type="text" value="${category.getCategoryName()}" name="newInputName">
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="submit" class="btn btn-secondary">Save changes</button>
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    </div>
+                                        <div class="md-form mb-5">
+                                                <%--                                        <input type="hidden" name="action" value="update">--%>
+                                            <input type="hidden" name="editedId" value="${category.getCategoryId()}">
+                                            <input type="text" value="${category.getCategoryName()}"
+                                                   name="newInputName">
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="submit" class="btn btn-secondary">Save changes</button>
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close
+                                            </button>
+                                        </div>
                                     </form>
                                 </div>
                             </div>
@@ -122,6 +121,42 @@
         </c:forEach>
         </tbody>
     </table>
+<%--    <a href="/Category?action=create" class="btn btn-success" role="button" style="float: right">Thêm Category</a>--%>
+        <button type="button" class="btn btn-primary" data-toggle="modal"
+                data-target="#createCategoryModal">
+            Chỉnh sửa
+        </button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="createCategoryModal" tabindex="-1" role="dialog"
+             aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="createModalLabel">Thêm danh mục bánh</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Nhập tên mới:</p>
+                        <form method="post" action="/Category?action=create">
+                            <div class="md-form mb-5">
+                                <%--                                        <input type="hidden" name="action" value="update">--%>
+                                <input type="text" name="newInputName">
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-secondary">Save changes</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </td>
+<%--    --%>
 </div>
 
 <%--    <a href="/FoodBlog?action=update&id=${recipe.getRecipeId()}">Update</a>--%>
