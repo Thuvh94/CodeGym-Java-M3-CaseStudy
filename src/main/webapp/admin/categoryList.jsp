@@ -59,10 +59,6 @@
             <th scope="col">Tên mục</th>
             <th scope="col"></th>
             <th scope="col"></th>
-            <th>
-                <button type="button" class="btn btn-primary" data-toggle="modal"
-                        data-target="#createCategoryModal">Thêm mới</button>
-            </th>
         </tr>
         </thead>
         <tbody>

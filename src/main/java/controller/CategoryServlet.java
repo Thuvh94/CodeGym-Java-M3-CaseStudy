@@ -32,9 +32,9 @@ public class CategoryServlet extends HttpServlet {
             case "update":
                 updateCategory(request, response);
                 break;
-//            default:
-//                updateCategory(request, response);
-//                break;
+            default:
+                System.out.println("default");
+                break;
         }
     }
 
@@ -51,9 +51,6 @@ public class CategoryServlet extends HttpServlet {
             case "create":
                 showCreateForm(request, response);
                 break;
-//            case "update":
-//                updateCategory(request, response);
-//                break;
             default:
                 displayCategoryList(request, response);
                 break;
@@ -83,7 +80,9 @@ public class CategoryServlet extends HttpServlet {
 
     private void updateCategory(HttpServletRequest request, HttpServletResponse response) {
         String newName = request.getParameter("newInputName");
+        System.out.println(newName);
         int id = Integer.parseInt(request.getParameter("editedId"));
+        System.out.println(id);
         categoryService.update(id, newName);
         displayCategoryList(request,response);
     }

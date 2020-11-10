@@ -48,7 +48,7 @@ public class CategoryServiceImpl implements CategoryService {
     public void update(int id, String name){
         Connection connection = new Connection();
         try {
-            CallableStatement callableStatement = connection.getConnection().prepareCall("{ call procedurename(?,?)}");
+            CallableStatement callableStatement = connection.getConnection().prepareCall("{ call updateCategory(?,?)}");
             callableStatement.setInt(1,id);
             callableStatement.setString(2,name);
             callableStatement.executeUpdate();
