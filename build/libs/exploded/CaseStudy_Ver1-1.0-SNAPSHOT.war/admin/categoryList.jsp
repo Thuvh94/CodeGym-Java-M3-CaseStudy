@@ -45,11 +45,11 @@
                 <a href="/Category" class="nav-link">Chỉnh sửa danh mục bánh</a>
             </li>
         </ul>
-<%--        <form class="form-inline my-2 my-lg-0" action="/FoodBlog" method="get">--%>
-<%--            <input type="hidden" name="action">--%>
-<%--            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="search">--%>
-<%--            <button type="submit" class="btn btn-outline-secondary">TÌM KIẾM</button>--%>
-<%--        </form>--%>
+        <%--        <form class="form-inline my-2 my-lg-0" action="/FoodBlog" method="get">--%>
+        <%--            <input type="hidden" name="action">--%>
+        <%--            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="search">--%>
+        <%--            <button type="submit" class="btn btn-outline-secondary">TÌM KIẾM</button>--%>
+        <%--        </form>--%>
     </nav>
 
     <table class="table">
@@ -59,17 +59,51 @@
             <th scope="col">Tên mục</th>
             <th scope="col"></th>
             <th scope="col"></th>
+            <th>
+                <button type="button" class="btn btn-primary" data-toggle="modal"
+                        data-target="#createCategoryModal">Thêm mới</button>
+            </th>
         </tr>
         </thead>
         <tbody>
         <c:forEach var="category" items="${categoryList}">
             <tr>
                 <th scope="row"><c:out value="${category.getCategoryId()}"/></th>
-                <td><a href="/FoodBlog?action=viewByCategory}"><c:out value="${category.getCategoryName()}"/></a>
-                </td>
+                <td><a href="/FoodBlog?action=viewByCategory&CategoryId=${category.getCategoryId()}"><c:out value="${category.getCategoryName()}"/></a></td>
                 <td>
-                    <a href="/Category?action=update&id=${category.getCategoryId()}" class="btn btn-primary btn-sm active"
-                       role="button" aria-pressed="true">Chỉnh sửa</a>
+                    <button type="button" class="btn btn-primary" data-toggle="modal"
+                            data-target="#updateCategoryModal">
+                        Chỉnh sửa
+                    </button>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="updateCategoryModal" tabindex="-1" role="dialog"
+                         aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Chỉnh sửa danh mục bánh</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>Nhập tên mới:</p>
+                                    <form method="post" action="/Category?action=update">
+                                    <div class="md-form mb-5">
+<%--                                        <input type="hidden" name="action" value="update">--%>
+                                        <input type="hidden" name="editedId" value="${category.getCategoryId()}">
+                                        <input type="text" value="${category.getCategoryName()}" name="newInputName">
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="submit" class="btn btn-secondary">Save changes</button>
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </td>
                 <td>
                     <button class="btn btn-danger btn-sm active" role="button" aria-pressed="true"

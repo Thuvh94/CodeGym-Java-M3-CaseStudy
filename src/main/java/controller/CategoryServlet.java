@@ -19,9 +19,25 @@ import java.util.List;
 @WebServlet(name = "CategoryServlet",urlPatterns ="/Category")
 public class CategoryServlet extends HttpServlet {
     CategoryService categoryService = new CategoryServiceImpl();
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
+        response.setContentType("text/html; charset=UTF-8");
+        String action = request.getParameter("action");
+        if (action == null) {
+            action = "";
+        }
+        switch (action) {
+            case "update":
+                updateCategory(request, response);
+                break;
+//            default:
+//                updateCategory(request, response);
+//                break;
+        }
     }
+
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
@@ -35,6 +51,9 @@ public class CategoryServlet extends HttpServlet {
             case "create":
                 showCreateForm(request, response);
                 break;
+//            case "update":
+//                updateCategory(request, response);
+//                break;
             default:
                 displayCategoryList(request, response);
                 break;
@@ -42,26 +61,31 @@ public class CategoryServlet extends HttpServlet {
     }
 
     private void displayCategoryList(HttpServletRequest request, HttpServletResponse response) {
-        List<Category> categoryList = new ArrayList<>();
-        try {
-        categoryList = categoryService.findAll();
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("admin/categoryList.jsp");
-        request.setAttribute("categoryList",categoryList);
-        requestDispatcher.forward(request, response);
-        } catch (ServletException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
+            List<Category> categoryList = new ArrayList<>();
+            try {
+                categoryList = categoryService.findAll();
+                RequestDispatcher requestDispatcher = request.getRequestDispatcher("admin/categoryList.jsp");
+                request.setAttribute("categoryList", categoryList);
+                requestDispatcher.forward(request, response);
+            } catch (ServletException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
     }
 
-
     private void showCreateForm(HttpServletRequest request, HttpServletResponse response) {
+    }
 
+    private void updateCategory(HttpServletRequest request, HttpServletResponse response) {
+        String newName = request.getParameter("newInputName");
+        int id = Integer.parseInt(request.getParameter("editedId"));
+        categoryService.update(id, newName);
+        displayCategoryList(request,response);
     }
 }
 
