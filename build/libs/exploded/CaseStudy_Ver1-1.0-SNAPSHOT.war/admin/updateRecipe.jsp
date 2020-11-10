@@ -11,7 +11,11 @@
 <head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
           integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.css" rel="stylesheet">
     <title>Edit recipe</title>
+    <style>
+        form label {font-weight:bold}
+    </style>
 </head>
 <body>
 <div class="container">
@@ -27,12 +31,12 @@
         </div>
         <div class="form-group">
             <label for="description">Mô tả</label>
-            <input type="text" name="description" class="form-control" id="description"
+            <input type="text" name="description" class="form-control summernote" id="description"
                    value="${editRecipe.getDescription()}">
         </div>
         <div class="form-group">
             <label for="ingredient">Nguyên liệu</label>
-            <input type="text" name="ingredient" class="form-control" id="ingredient"
+            <input type="text" name="ingredient" class="form-control summernote" id="ingredient"
                    value="${editRecipe.getIngredient()}">
         </div>
         <div class="form-group row">
@@ -65,7 +69,7 @@
         <h5>Công thức</h5>
         <c:forEach items="${cookStepList}" var="cookStep">
             <div class="form-group">
-                <textarea class="form-control" name="cookStep" ><c:out value="${cookStep.getTextContent()}"></c:out></textarea>
+                <textarea class="form-control summernote" name="cookStep" ><c:out value="${cookStep.getTextContent()}"></c:out></textarea>
                 <a href="" class="btn btn-danger btn-sm active col-1"
                    role="button" aria-pressed="true" style="float: right">Xóa</a><br>
                     <%--                <p name="cookStep">${cookStep.getTextContent()}</p>--%>
@@ -90,32 +94,41 @@
 
             function add() {
                 reqs_id++; // increment reqs_id to get a unique ID for the new element
-
                 //create textbox
-                var input = document.createElement('input');// Tạo ra nút
-                input.type = "text";
-                input.setAttribute("class", "w3-input w3-border");
-                input.setAttribute('id', 'reqs' + reqs_id);
-                input.setAttribute('value', reqs_id);
-                var reqs = document.getElementById("reqs");
+                var input = document.createElement('textarea');// Tạo ra nút
+                input.setAttribute("class", "form-control summernote");
+                input.setAttribute("name","cookStep");
+               var reqs = document.getElementById("reqs");
                 //create remove button
-                var remove = document.createElement('button');
-                remove.setAttribute('id', 'reqsr' + reqs_id);
+                var remove = document.createElement('a');
+                remove.setAttribute("class","btn btn-danger btn-sm active col-1");
+                remove.setAttribute("role","button");
+                remove.setAttribute("style","float: right");
                 remove.onclick = function(e) {
                     removeElement(e)
                 };
                 remove.setAttribute("type", "button");
-                remove.innerHTML = "Remove" + reqs_id;
+                remove.innerHTML = "Remove";
                 //append elements
                 reqs.appendChild(input);
+                $('.summernote').summernote(option = {
+                    toolbar: [
+                        ['style', ['bold', 'italic', 'underline', 'clear']],
+                        ['font', ['strikethrough', 'superscript', 'subscript']],
+                        ['fontsize', ['fontsize']],
+                        ['color', ['color']],
+                        ['para', ['ul', 'ol', 'paragraph']],
+                        ['height', ['height']]
+                    ]
+                });
                 reqs.appendChild(remove);
             }
 
         </script>
-        <button type="button" value="Add" onclick="javascript:add();"> Add</button>
+        <button type="button" class="btn btn-success" value="Add" onclick="javascript:add();"> Thêm công thức </button><br><br>
 <%----%>
-        <div>
-            <button type="submit" class="btn btn-primary btn-lg">Submit</button>
+        <div style="align-items: center">
+            <button type="submit" class="btn btn-primary btn-lg" >Submit</button>
         </div>
 
     </form>
@@ -131,6 +144,21 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"
         integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
         crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.js"></script>
+<script>
+    $(document).ready(function () {
+        $('.summernote').summernote(option = {
+            toolbar: [
+                ['style', ['bold', 'italic', 'underline', 'clear']],
+                ['font', ['strikethrough', 'superscript', 'subscript']],
+                ['fontsize', ['fontsize']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['height', ['height']]
+            ]
+        });
+    });
 
+</script>
 </body>
 </html>
