@@ -7,10 +7,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CategoryServiceImpl implements CategoryService {
+
     private static final String SELECT_ALL_CATEGORY = "select * from category";
     private static final String FIND_CATEGORY_BY_ID = "select * from category where categoryId= ?;";
     private static final String ADD_CATEGORY = "insert into category (categoryName) values (?);";
     private static final String DELETE_CATEGORY ="delete from category where categoryId = ?;";
+    private static final String COUNT_RECIPE_BY_CATEGORY = "select count(categoryId) from recipe where categoryId = ?;";
 
     @Override
     public List<Category> findAll() throws SQLException, ClassNotFoundException {
@@ -94,6 +96,26 @@ public class CategoryServiceImpl implements CategoryService {
         }
         return category;
 
+    }
+
+    @Override
+    public int countRecipeByCategoryId(int id) {
+        Connection connection = new Connection();
+        PreparedStatement preparedStatement = null;
+        int number = 0;
+        try {
+            preparedStatement = connection.getConnection().prepareStatement(COUNT_RECIPE_BY_CATEGORY);
+            preparedStatement.setInt(1,id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while(resultSet.next()){
+                number = resultSet.getInt(1);
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return number;
     }
 
     private void printSQLException(SQLException ex) {

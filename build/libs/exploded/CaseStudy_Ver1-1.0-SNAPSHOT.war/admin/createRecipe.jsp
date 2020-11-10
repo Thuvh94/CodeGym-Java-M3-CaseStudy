@@ -8,11 +8,15 @@
 --%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
-      integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+
 <html>
 <head>
     <title>createRecipe</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
+          integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <!-- include summernote css/js -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.css" rel="stylesheet">
+
 </head>
 <body>
 <div class="container">
@@ -28,11 +32,12 @@
         </div>
         <div class="form-group">
             <label for="description">Mô tả</label>
-            <textarea name="description" class="form-control" id="description" placeholder="Mô tả" rows="5"></textarea>
+            <textarea name="description" class="form-control summernote" id="description" placeholder="Mô tả" rows="5" >
+            </textarea>
         </div>
         <div class="form-group">
             <label for="ingredient">Nguyên liệu</label>
-            <textarea name="ingredient" class="form-control" id="ingredient"
+            <textarea name="ingredient" class="form-control summernote" id="ingredient"
                       placeholder="Ví dụ: 125 gram sữa tươi không đường" rows="7"></textarea>
         </div>
         <div class="form-group row">
@@ -68,7 +73,7 @@
                 <div class="form-group row">
                     <label class="col-md-4 control-label" for="cookStep" style="float: right"></label>
                     <div class="col-md-8">
-                        <textarea id="cookStep" name="cookStep" placeholder="" class="form-control input-md"></textarea>
+                        <textarea id="cookStep" name="cookStep" placeholder="" class="form-control input-md summernote"></textarea>
                     </div>
                 </div>
                 <!-- File Button -->
@@ -94,8 +99,6 @@
 
 
 </div>
-
-
 <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"
         integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n"
         crossorigin="anonymous"></script>
@@ -105,8 +108,17 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"
         integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
         crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.js"></script>
 <script>
     $(document).ready(function () {
+        $('.summernote').summernote(option={toolbar: [
+                ['style', ['bold', 'italic', 'underline', 'clear']],
+                ['font', ['strikethrough', 'superscript', 'subscript']],
+                ['fontsize', ['fontsize']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['height', ['height']]
+            ]});
         //@naresh action dynamic childs
         var next = 0;
         $("#add-more").click(function (e) {
@@ -118,7 +130,7 @@
                 '<!-- Text input--><br><br><br><div class="form-group row">\n' +
                 '                    <label class="col-md-4 control-label" for="cookStep" style="float: right"></label>\n' +
                 '                    <div class="col-md-8">\n' +
-                '                        <textarea id="cookStep" name="cookStep" placeholder="" class="form-control input-md"></textarea>\n' +
+                '                        <textarea id="cookStep" name="cookStep" placeholder="" class="form-control input-md summernote"></textarea>\n' +
                 '                    </div>\n' +
                 '                </div>' +
                 '<!-- File Button -->  <div class="form-group row">\n' +
@@ -134,6 +146,14 @@
             var removeButton = $(removeBtn);
             $(addto).after(newInput);
             $(addRemove).after(removeButton);
+            $('.summernote').summernote(option={toolbar: [
+                    ['style', ['bold', 'italic', 'underline', 'clear']],
+                    ['font', ['strikethrough', 'superscript', 'subscript']],
+                    ['fontsize', ['fontsize']],
+                    ['color', ['color']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                    ['height', ['height']]
+                ]});
             $("#field" + next).attr('data-source', $(addto).attr('data-source'));
             $("#count").val(next);
 
@@ -147,6 +167,7 @@
         });
 
     });
+
 </script>
 </body>
 </html>

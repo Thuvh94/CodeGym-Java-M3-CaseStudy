@@ -4,6 +4,8 @@ import model.Category;
 import model.Recipe;
 import service.CategoryService;
 import service.CategoryServiceImpl;
+import service.RecipeService;
+import service.RecipeServiceImpl;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,6 +13,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.swing.*;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -19,7 +22,7 @@ import java.util.List;
 @WebServlet(name = "CategoryServlet",urlPatterns ="/Category")
 public class CategoryServlet extends HttpServlet {
     CategoryService categoryService = new CategoryServiceImpl();
-
+    RecipeService recipeService = new RecipeServiceImpl();
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
@@ -41,9 +44,6 @@ public class CategoryServlet extends HttpServlet {
         }
     }
 
-
-
-
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
@@ -53,6 +53,9 @@ public class CategoryServlet extends HttpServlet {
             action = "";
         }
         switch (action) {
+            case "delete":
+                deleteCategory(request,response);
+                break;
             default:
                 displayCategoryList(request, response);
                 break;
@@ -63,6 +66,7 @@ public class CategoryServlet extends HttpServlet {
             List<Category> categoryList = new ArrayList<>();
             try {
                 categoryList = categoryService.findAll();
+//                int number = categoryService.
                 RequestDispatcher requestDispatcher = request.getRequestDispatcher("admin/categoryList.jsp");
                 request.setAttribute("categoryList", categoryList);
                 requestDispatcher.forward(request, response);
@@ -91,5 +95,12 @@ public class CategoryServlet extends HttpServlet {
         categoryService.update(id, newName);
         displayCategoryList(request,response);
     }
+
+    private void deleteCategory(HttpServletRequest request, HttpServletResponse response) {
+        int id = Integer.parseInt(request.getParameter("id"));
+        categoryService.delete(id);
+        displayCategoryList(request,response);
+    }
+
 }
 

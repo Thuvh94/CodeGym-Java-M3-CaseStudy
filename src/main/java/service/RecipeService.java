@@ -14,4 +14,5 @@ public interface RecipeService{
     Recipe findById (int id);
     List<Recipe> findByCategory(Category category);
     List<Recipe> findByName(String name);
+
 }

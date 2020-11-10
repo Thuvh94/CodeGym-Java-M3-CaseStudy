@@ -17,4 +17,6 @@ public interface CategoryService {
     void delete(int id);
 
     Category findById(int id);
+
+    int countRecipeByCategoryId(int id);
 }

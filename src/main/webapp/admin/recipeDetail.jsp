@@ -42,7 +42,7 @@
         <img src="${recipe.getCoverImg()}" class="figure-img img-fluid rounded"
              alt="A generic square placeholder image with rounded corners in a figure.">
     </figure>
-    <p><em><c:out value="${recipe.getDescription()}"></c:out></em></p>
+    <div><c:out value="${recipe.getDescription()}"></c:out></div>
     <h5>Nguyên liệu</h5>
     <p><c:out value="${recipe.getIngredient()}"></c:out></p>
 

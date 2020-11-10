@@ -57,6 +57,7 @@
         <tr>
             <th scope="col">ID</th>
             <th scope="col">Tên mục</th>
+            <th scope="col">Số bài viết</th>
             <th scope="col"></th>
             <th scope="col"></th>
         </tr>
@@ -67,6 +68,7 @@
                 <th scope="row"><c:out value="${category.getCategoryId()}"/></th>
                 <td><a href="/FoodBlog?action=viewByCategory&CategoryId=${category.getCategoryId()}"><c:out
                         value="${category.getCategoryName()}"/></a></td>
+                <td>Chờ code</td>
                 <td>
                     <button type="button" class="btn btn-primary" data-toggle="modal"
                             data-target="#updateCategoryModal">
@@ -94,7 +96,7 @@
                                                    name="newInputName">
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="submit" class="btn btn-secondary">Save changes</button>
+                                            <button type="submit" class="btn btn-success">Save changes</button>
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close
                                             </button>
                                         </div>
@@ -145,7 +147,7 @@
                                 <input type="text" name="newInputName">
                             </div>
                             <div class="modal-footer">
-                                <button type="submit" class="btn btn-secondary">Save changes</button>
+                                <button type="submit" class="btn btn-success">Save changes</button>
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close
                                 </button>
                             </div>

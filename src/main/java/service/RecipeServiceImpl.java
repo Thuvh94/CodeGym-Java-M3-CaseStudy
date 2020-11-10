@@ -12,6 +12,7 @@ public class RecipeServiceImpl implements RecipeService{
     private static final String FIND_RECIPE_BY_ID = "select * from recipe where recipeId= ?;";
     private static final String DELETE_RECIPE = "delete from recipe where recipeId = ?;";
 
+
     @Override
     public List<Recipe> findAll() throws SQLException, ClassNotFoundException {
         List<Recipe> recipeList = new ArrayList<>();
@@ -180,4 +181,5 @@ public class RecipeServiceImpl implements RecipeService{
         }
         return recipeList;
     }
+
 }
