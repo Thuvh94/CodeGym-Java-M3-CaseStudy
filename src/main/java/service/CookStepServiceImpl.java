@@ -70,10 +70,6 @@ public class CookStepServiceImpl implements CookStepService {
         System.out.println(row);
     }
 
-//    @Override
-//    public CookStep findById(int id) {
-//        return null;
-//    }
 
 //    @Override
 //    public void update(int id, CookStep object) throws SQLException, ClassNotFoundException {

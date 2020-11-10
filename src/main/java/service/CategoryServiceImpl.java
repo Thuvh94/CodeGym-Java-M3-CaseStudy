@@ -2,17 +2,15 @@ package service;
 
 import model.Category;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class CategoryServiceImpl implements CategoryService {
     private static final String SELECT_ALL_CATEGORY = "select * from category";
     private static final String FIND_CATEGORY_BY_ID = "select * from category where categoryId= ?;";
-//    private static final String ADD_CATEGORY =
+    private static final String ADD_CATEGORY = "insert into category (categoryName) values (?);";
+    private static final String DELETE_CATEGORY ="delete from category where categoryId = ?;";
 
     @Override
     public List<Category> findAll() throws SQLException, ClassNotFoundException {
@@ -33,18 +31,47 @@ public class CategoryServiceImpl implements CategoryService {
 
 
     @Override
-    public void add(Category object) throws SQLException, ClassNotFoundException {
-
+    public void add(String name)  {
+        Connection connection = new Connection();
+        try {
+            PreparedStatement preparedStatement = connection.getConnection().prepareStatement(ADD_CATEGORY);
+            preparedStatement.setString(1,name);
+            preparedStatement.executeUpdate();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
-    public void update(int id, Category object) throws SQLException, ClassNotFoundException {
-
+    public void update(int id, String name){
+        Connection connection = new Connection();
+        try {
+            CallableStatement callableStatement = connection.getConnection().prepareCall("{ call procedurename(?,?)}");
+            callableStatement.setInt(1,id);
+            callableStatement.setString(2,name);
+            callableStatement.executeUpdate();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
-    public void delete(int id) throws SQLException, ClassNotFoundException {
-
+    public void delete(int id){
+        Connection connection = new Connection();
+        PreparedStatement preparedStatement = null;
+        try {
+            preparedStatement = connection.getConnection().prepareStatement(DELETE_CATEGORY);
+            preparedStatement.setInt(1,id);
+            preparedStatement.executeUpdate();
+        } catch (SQLException throwables) {
+            printSQLException(throwables);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
