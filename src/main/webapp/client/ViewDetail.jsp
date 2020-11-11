@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="styleForLayout.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.css" rel="stylesheet">
 </head>
 <body>
 <nav class="navbar navbar-expand-sm bg-light navbar-light" >
@@ -105,13 +106,13 @@
                     <img src="${recipe.getCoverImg()}" class="figure-img img-fluid rounded"
                          alt="A generic square placeholder image with rounded corners in a figure.">
                 </figure>
-                <div><c:out value="${recipe.getDescription()}"></c:out></div>
+                <div class="summernote">${recipe.getDescription()}</div>
                 <h5>Nguyên liệu</h5>
-                <p><c:out value="${recipe.getIngredient()}"></c:out></p>
+                <p class="summernote">${recipe.getIngredient()}</p>
 
                 <h5>Công thức</h5>
                 <c:forEach items="${cookStepList}" var="cookStep">
-                    <p><c:out value="${cookStep.getTextContent()}"></c:out></p>
+                    <p class="summernote">${cookStep.getTextContent()}</p>
                 </c:forEach>
             </div>
         </div>
@@ -144,6 +145,16 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.js"></script>
+<script>
+    document.getElementsByClassName("summerNote").onload = function() {myFunction()};
+    function myFunction() {
+        var text = document.getElementsByClassName("summerNote");
+        document.getElementsByClassName("summerNote").innerHTML = text;
+    }
+
+
+</script>
 </body>
 </html>
 

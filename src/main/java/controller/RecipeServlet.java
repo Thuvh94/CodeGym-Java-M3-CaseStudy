@@ -87,6 +87,14 @@ public class RecipeServlet extends HttpServlet {
 
     // Chức năng hiển thị chi tiết bài đăng
     private void viewDetailRecipe(HttpServletRequest request, HttpServletResponse response) {
+        List<Category> categoryList = null;
+        try {
+            categoryList = iServiceCategory.findAll();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
         int id = Integer.parseInt(request.getParameter("id"));
         Recipe recipe = iServiceRecipe.findById(id);
         try {
@@ -94,6 +102,7 @@ public class RecipeServlet extends HttpServlet {
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("admin/recipeDetail.jsp");
             request.setAttribute("recipe", recipe);
             request.setAttribute("cookStepList", cookStepList);
+            request.setAttribute("categoryList",categoryList);
             requestDispatcher.forward(request, response);
         } catch (ServletException e) {
             e.printStackTrace();
