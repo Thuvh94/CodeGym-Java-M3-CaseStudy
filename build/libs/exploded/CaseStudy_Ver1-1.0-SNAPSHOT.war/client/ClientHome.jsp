@@ -1,4 +1,4 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <%--
   Created by IntelliJ IDEA.
   User: thu
@@ -25,7 +25,7 @@
             <i class="fad fa-rocket-launch"></i>
         </li>
         <li class="nav-item active">
-            <a class="navbar-brand" href="/RecipeBlog">HappyBaking Blog</a>
+            <a class="navbar-brand" href="/RecipeBlog">The LITTLE WHISK</a>
         </li>
 <%--        <li class="nav-item dropdown active">--%>
 <%--            <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button"--%>
@@ -92,11 +92,15 @@
 <%--    Right side bar--%>
         <div class="col-sm-2 sidenav">
             <div class="well">
-                <p>ADS</p>
+                <img src="Image/Logo.png" alt="Ảnh Logo" style="margin: 0">
+                <h3>About me</h3>
+                <p>Chào mừng bạn đến với <span style="font-weight: bold">The little whisk!</span><br>
+                    Tại <span style="font-weight: bold">The little whisk!</span>, mình sẽ chia sẻ các công thức làm bánh thật ngon cùng với nhiều mẹo và
+                    cách khắc phục sự cố để giúp bạn thành công ngay trong lần thử đầu tiên ^^<br>
+                    Mỗi công thức bánh tại The little whisk đều là kết quả của những lần thử - sai để cuối cùng cho ra một công thức ưng ý nhất! <br>
+                    Hãy cùng làm bánh với mình nhé!</p>
             </div>
-            <div class="well">
-                <p>ADS</p>
-            </div>
+
         </div>
     </div>
 </div>
