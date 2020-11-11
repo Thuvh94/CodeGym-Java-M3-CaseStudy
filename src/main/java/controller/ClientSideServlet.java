@@ -1,5 +1,7 @@
 package controller;
 
+import model.Category;
+import model.CookStep;
 import model.Recipe;
 import service.CategoryServiceImpl;
 import service.CookStepServiceImpl;
@@ -34,15 +36,20 @@ public class ClientSideServlet extends HttpServlet {
             action = "";
         }
         switch (action) {
-            case "view":
-                showDetail(request,response);
+            case "viewAllRecipes":
+                viewAllRecipes(request,response);
+                break;
+            case "viewAllCategories":
+                showAllCategories(request,response);
+                break;
+            case "viewDetail":
+                viewDetail(request,response);
                 break;
             default:
                 displayRecipeList(request, response);
                 break;
         }
     }
-
 
 
     private void displayRecipeList(HttpServletRequest request, HttpServletResponse response) {
@@ -63,10 +70,45 @@ public class ClientSideServlet extends HttpServlet {
         }
     }
 
-    private void showDetail(HttpServletRequest request, HttpServletResponse response) {
-
+    private void showAllCategories(HttpServletRequest request, HttpServletResponse response) {
     }
 
+    private void viewAllRecipes(HttpServletRequest request, HttpServletResponse response) {
+        List<Recipe> recipeList = new ArrayList<>();
+        try {
+            recipeList = iServiceRecipe.findAll();
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher("client/RecipeList.jsp");
+            request.setAttribute("recipeList", recipeList);
+            requestDispatcher.forward(request, response);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (ServletException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
+    private void viewDetail(HttpServletRequest request, HttpServletResponse response) {
+        int id = Integer.parseInt(request.getParameter("id"));
+        Recipe recipe = iServiceRecipe.findById(id);
+        try {
+            List<CookStep> cookStepList = serviceCookStep.findAllByRecipeId(recipe);
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher("client/ViewDetail.jsp");
+            request.setAttribute("recipe", recipe);
+            request.setAttribute("cookStepList", cookStepList);
+            requestDispatcher.forward(request, response);
+        } catch (ServletException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
 }
 

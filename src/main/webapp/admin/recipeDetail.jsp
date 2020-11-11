@@ -37,18 +37,18 @@
             <c:out value="${recipe.getCreatedAt()}"></c:out>
 
         </li>
-    </ul>
+    </ul><br><br>
     <figure class="figure">
         <img src="${recipe.getCoverImg()}" class="figure-img img-fluid rounded"
              alt="A generic square placeholder image with rounded corners in a figure.">
     </figure>
-    <div><c:out value="${recipe.getDescription()}"></c:out></div>
-    <h5>Nguyên liệu</h5>
-    <p><c:out value="${recipe.getIngredient()}"></c:out></p>
+    <div><c:out value="${recipe.getDescription()}"></c:out></div><br>
+    <h5>Nguyên liệu</h5><br>
+    <p><c:out value="${recipe.getIngredient()}"></c:out></p><br>
 
     <h5>Công thức</h5>
     <c:forEach items="${cookStepList}" var="cookStep">
-        <p><c:out value="${cookStep.getTextContent()}"></c:out></p>
+        <p><c:out value="${cookStep.getTextContent()}"></c:out></p><br>
     </c:forEach>
 
 

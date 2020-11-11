@@ -11,7 +11,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Bootstrap Example</title>
+    <title>The LITTLE WHISK</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
@@ -44,7 +44,7 @@
             <a href="/RecipeBlog?action=viewAllRecipes" class="nav-link">Công thức</a>
         </li>
         <li class="nav-item active">
-            <a href="" class="nav-link">Danh mục bánh</a>
+            <a href="/RecipeBlog?action=viewAllCategories" class="nav-link">Danh mục bánh</a>
         </li>
     </ul>
     <form class="form-inline my-2 my-lg-0" action="/FoodBlog" method="get">
@@ -58,7 +58,7 @@
 <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
     <div class="carousel-inner">
         <div class="carousel-item active">
-            <img class="d-block w-100" src="Image/banner1.png" alt="First slide">
+            <img class="d-block w-100" src="Image/LittleWhiskBanner.png" alt="First slide">
         </div>
         <%--    <div class="carousel-item">--%>
         <%--      <img class="d-block w-100" src="..." alt="Second slide">--%>
@@ -84,7 +84,7 @@
                <h3>${recipe.getTitle()}</h3>
                <img src="${recipe.getCoverImg()}" alt="Cover Img">
                <p>${recipe.getDescription()}</p>
-               <a href="" class="btn btn-info" role="button">Xem tiếp</a>
+               <a href="/RecipeBlog?action=viewDetail&id=${recipe.getRecipeId()}" class="btn btn-info" role="button">Xem tiếp</a>
                 <hr>
            </c:forEach>
         </div>
