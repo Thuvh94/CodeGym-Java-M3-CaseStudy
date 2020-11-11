@@ -1,9 +1,8 @@
-
 <%--
   Created by IntelliJ IDEA.
   User: thu
-  Date: 11/8/2020
-  Time: 11:44 PM
+  Date: 11/11/2020
+  Time: 1:02 PM
   To change this template use File | Settings | File Templates.
 --%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -27,19 +26,19 @@
         <li class="nav-item active">
             <a class="navbar-brand" href="/RecipeBlog">The LITTLE WHISK</a>
         </li>
-<%--        <li class="nav-item dropdown active">--%>
-<%--            <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button"--%>
-<%--               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">--%>
-<%--                Danh mục bánh--%>
-<%--            </a>--%>
-<%--            <div class="dropdown-menu" aria-labelledby="navbarDropdown">--%>
-<%--                &lt;%&ndash;        <c:forEach items="${categoryList}" var="category">&ndash;%&gt;--%>
-<%--                &lt;%&ndash;          <a class="dropdown-item"&ndash;%&gt;--%>
-<%--                &lt;%&ndash;             href="/FoodBlog?action=viewByCategory&CategoryId=${category.getCategoryId()}"><c:out&ndash;%&gt;--%>
-<%--                &lt;%&ndash;                  value="${category.getCategoryName()}"></c:out></a>&ndash;%&gt;--%>
-<%--                &lt;%&ndash;        </c:forEach>&ndash;%&gt;--%>
-<%--            </div>--%>
-<%--        </li>--%>
+        <%--        <li class="nav-item dropdown active">--%>
+        <%--            <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button"--%>
+        <%--               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">--%>
+        <%--                Danh mục bánh--%>
+        <%--            </a>--%>
+        <%--            <div class="dropdown-menu" aria-labelledby="navbarDropdown">--%>
+        <%--                &lt;%&ndash;        <c:forEach items="${categoryList}" var="category">&ndash;%&gt;--%>
+        <%--                &lt;%&ndash;          <a class="dropdown-item"&ndash;%&gt;--%>
+        <%--                &lt;%&ndash;             href="/FoodBlog?action=viewByCategory&CategoryId=${category.getCategoryId()}"><c:out&ndash;%&gt;--%>
+        <%--                &lt;%&ndash;                  value="${category.getCategoryName()}"></c:out></a>&ndash;%&gt;--%>
+        <%--                &lt;%&ndash;        </c:forEach>&ndash;%&gt;--%>
+        <%--            </div>--%>
+        <%--        </li>--%>
         <li class="nav-item active">
             <a href="/RecipeBlog?action=viewAllRecipes" class="nav-link">Công thức</a>
         </li>
@@ -71,25 +70,40 @@
 
 <div class="container-fluid text-center">
     <div class="row content">
-<%--        Left side bar --%>
+        <%--        Left side bar --%>
         <div class="col-sm-2 sidenav">
             <p><a href="#">Link</a></p>
             <p><a href="#">Link</a></p>
             <p><a href="#">Link</a></p>
         </div>
 
-<%--    Main body--%>
+        <%--    Main body--%>
         <div class="col-sm-8 text-left">
-            <c:forEach items="${recipeList}" var="recipe">
-               <h3>${recipe.getTitle()}</h3>
-               <img src="${recipe.getCoverImg()}" alt="Cover Img">
-               <p>${recipe.getDescription()}</p>
-               <a href="/RecipeBlog?action=viewDetail&id=${recipe.getRecipeId()}" class="btn btn-outline-dark" role="button">Xem tiếp</a>
-                <hr>
-           </c:forEach>
+            <div class="row">
+                <c:forEach items="${categoryList}" var="category">
+                    <div class="col-md-6 col-lg-4" style="margin-bottom: 0px">
+                        <div class="single_service">
+                            <div class="thumb">
+                                <div><img src="" alt="Ảnh Category" style="height: 175px"></div>
+                            </div>
+                            <div class="service_info">
+                                <h4><c:out value="${category.getCategoryName()}"/></h4>
+                                <a href="/RecipeBlog?action=viewRecipesByCategory&id=${category.getCategoryId()}" role="button" class="btn btn-outline-dark">Xem bài viết</a>
+                            </div>
+                        </div>
+                    </div>
+                </c:forEach>
+            </div>
+<%--            <c:forEach items="${recipeList}" var="recipe">--%>
+<%--                <h3>${recipe.getTitle()}</h3>--%>
+<%--                <img src="${recipe.getCoverImg()}" alt="Cover Img">--%>
+<%--                <p>${recipe.getDescription()}</p>--%>
+<%--                <a href="/RecipeBlog?action=viewDetail&id=${recipe.getRecipeId()}" class="btn btn-info" role="button">Xem tiếp</a>--%>
+<%--                <hr>--%>
+<%--            </c:forEach>--%>
         </div>
 
-<%--    Right side bar--%>
+        <%--    Right side bar--%>
         <div class="col-sm-2 sidenav">
             <div class="well">
                 <img src="Image/Logo.png" alt="Ảnh Logo" style="margin: 0">
@@ -119,3 +133,4 @@
         crossorigin="anonymous"></script>
 </body>
 </html>
+

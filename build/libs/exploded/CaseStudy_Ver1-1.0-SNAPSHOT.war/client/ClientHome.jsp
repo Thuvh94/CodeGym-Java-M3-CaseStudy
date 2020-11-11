@@ -84,7 +84,7 @@
                <h3>${recipe.getTitle()}</h3>
                <img src="${recipe.getCoverImg()}" alt="Cover Img">
                <p>${recipe.getDescription()}</p>
-               <a href="/RecipeBlog?action=viewDetail&id=${recipe.getRecipeId()}" class="btn btn-info" role="button">Xem tiếp</a>
+               <a href="/RecipeBlog?action=viewDetail&id=${recipe.getRecipeId()}" class="btn btn-outline-dark" role="button">Xem tiếp</a>
                 <hr>
            </c:forEach>
         </div>

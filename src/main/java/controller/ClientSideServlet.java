@@ -3,6 +3,7 @@ package controller;
 import model.Category;
 import model.CookStep;
 import model.Recipe;
+import service.CategoryService;
 import service.CategoryServiceImpl;
 import service.CookStepServiceImpl;
 import service.RecipeServiceImpl;
@@ -23,6 +24,7 @@ public class ClientSideServlet extends HttpServlet {
     CategoryServiceImpl iServiceCategory = new CategoryServiceImpl();
     RecipeServiceImpl iServiceRecipe = new RecipeServiceImpl();
     CookStepServiceImpl serviceCookStep = new CookStepServiceImpl();
+    CategoryService categoryService = new CategoryServiceImpl();
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
     }
@@ -44,6 +46,9 @@ public class ClientSideServlet extends HttpServlet {
                 break;
             case "viewDetail":
                 viewDetail(request,response);
+                break;
+            case "viewRecipesByCategory":
+                viewRecipesByCategory(request,response);
                 break;
             default:
                 displayRecipeList(request, response);
@@ -71,6 +76,22 @@ public class ClientSideServlet extends HttpServlet {
     }
 
     private void showAllCategories(HttpServletRequest request, HttpServletResponse response) {
+        List<Category> categoryList = new ArrayList<>();
+        try {
+            categoryList = categoryService.findAll();
+//                int number = categoryService.
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher("client/CategoryList.jsp");
+            request.setAttribute("categoryList", categoryList);
+            requestDispatcher.forward(request, response);
+        } catch (ServletException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     private void viewAllRecipes(HttpServletRequest request, HttpServletResponse response) {
@@ -110,5 +131,26 @@ public class ClientSideServlet extends HttpServlet {
             e.printStackTrace();
         }
     }
+
+
+    private void viewRecipesByCategory(HttpServletRequest request, HttpServletResponse response) {
+        int categoryId = Integer.parseInt(request.getParameter("id"));
+//        List<Category> categoryList = null;
+        Category category = iServiceCategory.findById(categoryId);
+        List<Recipe> recipeList = iServiceRecipe.findByCategory(category);
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("client/RecipeList.jsp");
+        request.setAttribute("recipeList", recipeList);
+        request.setAttribute("category",category);
+//        request.setAttribute("categoryList",categoryList);
+        try {
+            requestDispatcher.forward(request, response);
+        } catch (ServletException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
 }
 
