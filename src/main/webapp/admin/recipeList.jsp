@@ -17,7 +17,7 @@
 <body>
 <div class="container">
     <%----------------------------------------------%>
-    <nav class="navbar navbar-expand-sm bg-light navbar-light" style="height: 80px">
+    <nav class="navbar navbar-expand-sm bg-light navbar-light" >
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
                 <i class="fad fa-rocket-launch"></i>
