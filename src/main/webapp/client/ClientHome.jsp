@@ -47,8 +47,8 @@
             <a href="/RecipeBlog?action=viewAllCategories" class="nav-link">Danh mục bánh</a>
         </li>
     </ul>
-    <form class="form-inline my-2 my-lg-0" action="/FoodBlog" method="get">
-        <input type="hidden" name="action">
+    <form class="form-inline my-2 my-lg-0" action="/RecipeBlog" method="get">
+        <input type="hidden" name="action" value="searchByName">
         <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="search">
         <button type="submit" class="btn btn-outline-secondary">TÌM KIẾM</button>
     </form>

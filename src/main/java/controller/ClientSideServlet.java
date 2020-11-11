@@ -26,7 +26,21 @@ public class ClientSideServlet extends HttpServlet {
     CookStepServiceImpl serviceCookStep = new CookStepServiceImpl();
     CategoryService categoryService = new CategoryServiceImpl();
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
+        response.setContentType("text/html; charset=UTF-8");
+        String action = request.getParameter("action");
+        if (action == null) {
+            action = "";
+        }
+        switch (action) {
+//            case "searchByName":
+//                searchByName(request, response);
+//                break;
+            default:
+                displayRecipeList(request, response);
+                break;
+        }
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -50,11 +64,16 @@ public class ClientSideServlet extends HttpServlet {
             case "viewRecipesByCategory":
                 viewRecipesByCategory(request,response);
                 break;
+            case "searchByName":
+                searchByName(request, response);
+                break;
             default:
                 displayRecipeList(request, response);
                 break;
         }
     }
+
+
 
 
     private void displayRecipeList(HttpServletRequest request, HttpServletResponse response) {
@@ -149,7 +168,20 @@ public class ClientSideServlet extends HttpServlet {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
 
+    private void searchByName(HttpServletRequest request, HttpServletResponse response) {
+        String name = request.getParameter("search");
+        List<Recipe> recipeList = iServiceRecipe.findByName(name);
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("client/RecipeList.jsp");
+        request.setAttribute("recipeList", recipeList);
+        try {
+            requestDispatcher.forward(request, response);
+        } catch (ServletException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }
