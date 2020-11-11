@@ -167,7 +167,6 @@
                 $(fieldID).remove();
             });
         });
-
     });
 
 </script>

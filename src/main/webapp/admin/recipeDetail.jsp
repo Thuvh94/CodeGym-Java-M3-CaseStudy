@@ -42,13 +42,13 @@
         <img src="${recipe.getCoverImg()}" class="figure-img img-fluid rounded"
              alt="A generic square placeholder image with rounded corners in a figure.">
     </figure>
-    <div><c:out value="${recipe.getDescription()}"></c:out></div><br>
+    <div class="summerNote">${recipe.getDescription()}</div><br>
     <h5>Nguyên liệu</h5><br>
-    <p><c:out value="${recipe.getIngredient()}"></c:out></p><br>
+    <p class="summerNote">${recipe.getIngredient()}</p><br>
 
     <h5>Công thức</h5>
     <c:forEach items="${cookStepList}" var="cookStep">
-        <p><c:out value="${cookStep.getTextContent()}"></c:out></p><br>
+        <p class="summerNote">${cookStep.getTextContent()}</p><br>
     </c:forEach>
 
 
@@ -64,5 +64,22 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"
         integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
         crossorigin="anonymous"></script>
+<script>
+    // function onload(){
+    //
+    // }
+    // window.onload
+
+    // document.getElementsByClassName("summerNote").innerHTML = String;
+
+    document.getElementsByClassName("summerNote").onload = function() {myFunction()};
+
+    function myFunction() {
+        var text = document.getElementsByClassName("summerNote");
+        document.getElementsByClassName("summerNote").innerHTML = text;
+    }
+
+
+</script>
 </body>
 </html>
