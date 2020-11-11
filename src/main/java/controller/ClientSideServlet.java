@@ -49,7 +49,7 @@ public class ClientSideServlet extends HttpServlet {
         List<Recipe> recipeList = new ArrayList<>();
         try {
             recipeList = iServiceRecipe.findAll();
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher("client/home.jsp");
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher("client/ClientHome.jsp");
             request.setAttribute("recipeList", recipeList);
             requestDispatcher.forward(request, response);
         } catch (SQLException throwables) {
