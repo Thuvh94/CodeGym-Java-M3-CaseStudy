@@ -29,10 +29,13 @@
             <li class="nav-item active">
                 <a class="navbar-brand" href="/FoodBlog">Admin Site</a>
             </li>
+            <li class="nav-item active">
+                <a href="/FoodBlog?action=create" class="nav-link">Thêm bài đăng</a>
+            </li>
             <li class="nav-item dropdown active">
                 <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button"
                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Danh mục bánh
+                    Công thức(theo mục)
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <c:forEach items="${categoryList}" var="category">
@@ -43,17 +46,17 @@
                 </div>
             </li>
             <li class="nav-item active">
-                <a href="/FoodBlog?action=create" class="nav-link">Thêm bài đăng</a>
+                <a href="/Category" class="nav-link">Sửa danh mục</a>
             </li>
             <li class="nav-item active">
-                <a href="/Category" class="nav-link">Chỉnh sửa danh mục bánh</a>
+                <a href="/RecipeBlog" class="nav-link">Đến Blog</a>
             </li>
         </ul>
-        <%--        <form class="form-inline my-2 my-lg-0" action="/FoodBlog" method="get">--%>
-        <%--            <input type="hidden" name="action">--%>
-        <%--            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="search">--%>
-        <%--            <button type="submit" class="btn btn-outline-secondary">TÌM KIẾM</button>--%>
-        <%--        </form>--%>
+        <form class="form-inline my-2 my-lg-0" action="/FoodBlog" method="get">
+            <input type="hidden" name="action">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="search">
+            <button type="submit" class="btn btn-outline-secondary">TÌM KIẾM</button>
+        </form>
     </nav>
     <h1>Nhập công thức</h1>
     <form method="post" enctype="multipart/form-data" >
@@ -76,13 +79,13 @@
                       placeholder="Ví dụ: 125 gram sữa tươi không đường" rows="7"></textarea>
         </div>
         <div class="form-group row">
-            <label for="cookTime" class="col-4 col-form-label">Thời gian nấu/nướng </label>
+            <label for="cookTime" class="col-4 col-form-label" >Thời gian nấu/nướng </label>
             <div class="col-2">
-                <input class="form-control" type="number" id="cookTime" name="cookTime">
+                <input class="form-control" type="number" id="cookTime" name="cookTime" min="1">
             </div>
             <label for="yield" class="col-4 col-form-label">Khẩu phần</label>
             <div class="col-2">
-                <input class="form-control" type="number" id="yield" name="yield">
+                <input class="form-control" type="number" id="yield" name="yield" min="1">
             </div>
         </div>
         <div class="form-group row">

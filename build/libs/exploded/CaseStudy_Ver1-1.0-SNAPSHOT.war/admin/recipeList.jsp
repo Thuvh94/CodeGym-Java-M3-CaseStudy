@@ -17,40 +17,43 @@
 <body>
 <div class="container">
     <%----------------------------------------------%>
-    <nav class="navbar navbar-expand-sm bg-light navbar-light" >
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <i class="fad fa-rocket-launch"></i>
-            </li>
-            <li class="nav-item active">
-                <a class="navbar-brand" href="/FoodBlog">Admin Site</a>
-            </li>
-            <li class="nav-item dropdown active">
-                <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button"
-                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Danh mục bánh
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <c:forEach items="${categoryList}" var="category">
-                        <a class="dropdown-item"
-                           href="/FoodBlog?action=viewByCategory&CategoryId=${category.getCategoryId()}"><c:out
-                                value="${category.getCategoryName()}"></c:out></a>
-                    </c:forEach>
-                </div>
-            </li>
-            <li class="nav-item active">
-                <a href="/FoodBlog?action=create" class="nav-link">Thêm bài đăng</a>
-            </li>
-            <li class="nav-item active">
-                <a href="/Category" class="nav-link">Chỉnh sửa danh mục bánh</a>
-            </li>
-        </ul>
-        <form class="form-inline my-2 my-lg-0" action="/FoodBlog" method="get">
-            <input type="hidden" name="action">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="search">
-            <button type="submit" class="btn btn-outline-secondary">TÌM KIẾM</button>
-        </form>
-    </nav>
+        <nav class="navbar navbar-expand-sm bg-light navbar-light" style="height: 80px">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <i class="fad fa-rocket-launch"></i>
+                </li>
+                <li class="nav-item active">
+                    <a class="navbar-brand" href="/FoodBlog">Admin Site</a>
+                </li>
+                <li class="nav-item active">
+                    <a href="/FoodBlog?action=create" class="nav-link">Thêm bài đăng</a>
+                </li>
+                <li class="nav-item dropdown active">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Công thức(theo mục)
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <c:forEach items="${categoryList}" var="category">
+                            <a class="dropdown-item"
+                               href="/FoodBlog?action=viewByCategory&CategoryId=${category.getCategoryId()}"><c:out
+                                    value="${category.getCategoryName()}"></c:out></a>
+                        </c:forEach>
+                    </div>
+                </li>
+                <li class="nav-item active">
+                    <a href="/Category" class="nav-link">Sửa danh mục</a>
+                </li>
+                <li class="nav-item active">
+                    <a href="/RecipeBlog" class="nav-link">Đến Blog</a>
+                </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0" action="/FoodBlog" method="get">
+                <input type="hidden" name="action">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="search">
+                <button type="submit" class="btn btn-outline-secondary">TÌM KIẾM</button>
+            </form>
+        </nav>
 
     <table class="table">
         <thead class="thead-light">

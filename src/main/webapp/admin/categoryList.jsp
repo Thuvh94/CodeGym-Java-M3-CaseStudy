@@ -25,10 +25,13 @@
             <li class="nav-item active">
                 <a class="navbar-brand" href="/FoodBlog">Admin Site</a>
             </li>
+            <li class="nav-item active">
+                <a href="/FoodBlog?action=create" class="nav-link">Thêm bài đăng</a>
+            </li>
             <li class="nav-item dropdown active">
                 <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button"
                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Danh mục bánh
+                    Công thức(theo mục)
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <c:forEach items="${categoryList}" var="category">
@@ -39,17 +42,17 @@
                 </div>
             </li>
             <li class="nav-item active">
-                <a href="/FoodBlog?action=create" class="nav-link">Thêm bài đăng</a>
+                <a href="/Category" class="nav-link">Sửa danh mục</a>
             </li>
             <li class="nav-item active">
-                <a href="/Category" class="nav-link">Chỉnh sửa danh mục bánh</a>
+                <a href="/RecipeBlog" class="nav-link">Đến Blog</a>
             </li>
         </ul>
-        <%--        <form class="form-inline my-2 my-lg-0" action="/FoodBlog" method="get">--%>
-        <%--            <input type="hidden" name="action">--%>
-        <%--            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="search">--%>
-        <%--            <button type="submit" class="btn btn-outline-secondary">TÌM KIẾM</button>--%>
-        <%--        </form>--%>
+        <form class="form-inline my-2 my-lg-0" action="/FoodBlog" method="get">
+            <input type="hidden" name="action">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="search">
+            <button type="submit" class="btn btn-outline-secondary">TÌM KIẾM</button>
+        </form>
     </nav>
 
     <table class="table">
@@ -123,41 +126,41 @@
         </c:forEach>
         </tbody>
     </table>
-<%--    <a href="/Category?action=create" class="btn btn-success" role="button" style="float: right">Thêm Category</a>--%>
-        <button type="button" class="btn btn-primary" data-toggle="modal"
-                data-target="#createCategoryModal">
-            Thêm mới
-        </button>
+    <%--    <a href="/Category?action=create" class="btn btn-success" role="button" style="float: right">Thêm Category</a>--%>
+    <button type="button" class="btn btn-primary" data-toggle="modal"
+            data-target="#createCategoryModal">
+        Thêm mới
+    </button>
 
-        <!-- Modal -->
-        <div class="modal fade" id="createCategoryModal" tabindex="-1" role="dialog"
-             aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="createModalLabel">Thêm danh mục bánh</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <p>Nhập tên mới:</p>
-                        <form method="post" action="/Category?action=create">
-                            <div class="md-form mb-5">
-                                <input type="text" name="newInputName">
-                            </div>
-                            <div class="modal-footer">
-                                <button type="submit" class="btn btn-success">Save changes</button>
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close
-                                </button>
-                            </div>
-                        </form>
-                    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="createCategoryModal" tabindex="-1" role="dialog"
+         aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="createModalLabel">Thêm danh mục bánh</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Nhập tên mới:</p>
+                    <form method="post" action="/Category?action=create">
+                        <div class="md-form mb-5">
+                            <input type="text" name="newInputName">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-success">Save changes</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close
+                            </button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
-        </td>
-<%--    --%>
+    </div>
+    </td>
+    <%--    --%>
 </div>
 
 <%--    <a href="/FoodBlog?action=update&id=${recipe.getRecipeId()}">Update</a>--%>

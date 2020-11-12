@@ -14,6 +14,11 @@
 <html>
 <head>
     <title>Recipe Detail</title>
+    <style>
+        span {
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
 <div class="container">
@@ -25,10 +30,13 @@
             <li class="nav-item active">
                 <a class="navbar-brand" href="/FoodBlog">Admin Site</a>
             </li>
+            <li class="nav-item active">
+                <a href="/FoodBlog?action=create" class="nav-link">Thêm bài đăng</a>
+            </li>
             <li class="nav-item dropdown active">
                 <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button"
                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Danh mục bánh
+                    Công thức(theo mục)
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <c:forEach items="${categoryList}" var="category">
@@ -39,21 +47,21 @@
                 </div>
             </li>
             <li class="nav-item active">
-                <a href="/FoodBlog?action=create" class="nav-link">Thêm bài đăng</a>
+                <a href="/Category" class="nav-link">Sửa danh mục</a>
             </li>
             <li class="nav-item active">
-                <a href="/Category" class="nav-link">Chỉnh sửa danh mục bánh</a>
+                <a href="/RecipeBlog" class="nav-link">Đến Blog</a>
             </li>
         </ul>
-        <%--        <form class="form-inline my-2 my-lg-0" action="/FoodBlog" method="get">--%>
-        <%--            <input type="hidden" name="action">--%>
-        <%--            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="search">--%>
-        <%--            <button type="submit" class="btn btn-outline-secondary">TÌM KIẾM</button>--%>
-        <%--        </form>--%>
+        <form class="form-inline my-2 my-lg-0" action="/FoodBlog" method="get">
+            <input type="hidden" name="action">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="search">
+            <button type="submit" class="btn btn-outline-secondary">TÌM KIẾM</button>
+        </form>
     </nav>
     <h1 class="display-3"><c:out value="${recipe.getTitle()}"></c:out></h1>
     <ul class="list-inline">
-        <li class="list-inline-item">Độ khó:
+        <li class="list-inline-item"><span>Độ khó:</span>
             <c:if test="${recipe.getDifficulty()==1}">
                 <c:out value="Dễ"></c:out>
             </c:if>
@@ -64,11 +72,11 @@
                 <c:out value="Khó"></c:out>
             </c:if>
         </li>
-        <li class="list-inline-item">Khẩu phần: <c:out value="${recipe.getYield()}"></c:out> người</li>
-        <li class="list-inline-item">Thời gian nấu / nướng: <c:out value="${recipe.getCookTime()}"/> giờ</li>
+        <li class="list-inline-item"><span>Khẩu phần:</span> <c:out value="${recipe.getYield()}"></c:out> người</li>
+        <li class="list-inline-item"><span>Thời gian nấu / nướng:</span> <c:out value="${recipe.getCookTime()}"/> giờ</li>
     </ul>
     <ul class="list-inline">
-        <li class="list-inline-item"> Ngày tạo:
+        <li class="list-inline-item"> <span>Ngày tạo:</span>
             <c:out value="${recipe.getCreatedAt()}"></c:out>
 
         </li>

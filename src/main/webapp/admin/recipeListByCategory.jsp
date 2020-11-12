@@ -25,10 +25,13 @@
                 <li class="nav-item active">
                     <a class="navbar-brand" href="/FoodBlog">Admin Site</a>
                 </li>
+                <li class="nav-item active">
+                    <a href="/FoodBlog?action=create" class="nav-link">Thêm bài đăng</a>
+                </li>
                 <li class="nav-item dropdown active">
                     <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button"
                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Danh mục bánh
+                        Công thức(theo mục)
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <c:forEach items="${categoryList}" var="category">
@@ -39,24 +42,18 @@
                     </div>
                 </li>
                 <li class="nav-item active">
-                    <a href="/FoodBlog?action=create" class="nav-link">Thêm bài đăng</a>
+                    <a href="/Category" class="nav-link">Sửa danh mục</a>
                 </li>
                 <li class="nav-item active">
-                    <a href="/Category" class="nav-link">Chỉnh sửa danh mục bánh</a>
+                    <a href="/RecipeBlog" class="nav-link">Đến Blog</a>
                 </li>
             </ul>
-            <%--        <form class="form-inline my-2 my-lg-0" action="/FoodBlog" method="get">--%>
-            <%--            <input type="hidden" name="action">--%>
-            <%--            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="search">--%>
-            <%--            <button type="submit" class="btn btn-outline-secondary">TÌM KIẾM</button>--%>
-            <%--        </form>--%>
+            <form class="form-inline my-2 my-lg-0" action="/FoodBlog" method="get">
+                <input type="hidden" name="action">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="search">
+                <button type="submit" class="btn btn-outline-secondary">TÌM KIẾM</button>
+            </form>
         </nav>
-    <form class="form-inline" method="get" action="/FoodBlog">
-        <h1 class="col-8">Danh mục bánh: ${categoryName}</h1>
-        <input type="hidden" name="action">
-        <input class="form-control mr-sm-2" name="search" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-    </form>
 
     <%---------------------------------------------%>
     <table class="table">
