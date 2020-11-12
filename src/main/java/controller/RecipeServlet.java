@@ -15,6 +15,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
+import java.io.File;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -23,12 +25,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 @WebServlet(name = "RecipeServlet", urlPatterns = "/FoodBlog")
-@MultipartConfig
+@MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // 2MB
+        maxFileSize = 1024 * 1024 * 10, // 10MB
+        maxRequestSize = 1024 * 1024 * 50) // 50MB
 public class RecipeServlet extends HttpServlet {
     CategoryServiceImpl iServiceCategory = new CategoryServiceImpl();
     RecipeServiceImpl iServiceRecipe = new RecipeServiceImpl();
     CookStepServiceImpl serviceCookStep = new CookStepServiceImpl();
-
+    public static final String SAVE_DIRECTORY = "Image";
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
@@ -153,7 +157,16 @@ public class RecipeServlet extends HttpServlet {
         Category category = iServiceCategory.findById(categoryId);
         System.out.println(category);
         // Xử lý ảnh cover photo
-        String coverImg = request.getParameter("coverImg");
+        uploadImage(request,response);
+        Part part = null;
+        try {
+            part =  request.getPart("coverImg");
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ServletException e) {
+            e.printStackTrace();
+        }
+        String coverImg = extractFileName(part);
         Recipe recipe = new Recipe(title, description, ingredient, difficulty, cookTime, yield, category, coverImg);
         System.out.println(recipe);
         try {
@@ -225,6 +238,52 @@ public class RecipeServlet extends HttpServlet {
             e.printStackTrace();
         }
     }
+    // Chức năng add ảnh
+    private void uploadImage(HttpServletRequest request, HttpServletResponse response)  {
+        String appPath = "G:\\Back-up-Thu\\CodeGym_Module3\\CaseStudy_Ver1\\src\\main\\webapp";
+        appPath = appPath.replace('\\', '/');
+        String fullSavePath = null;
+        if (appPath.endsWith("/")) {
+            fullSavePath = appPath + SAVE_DIRECTORY;
+        } else {
+            fullSavePath = appPath + "/" + SAVE_DIRECTORY;
+        }
+        try {
+            for (Part part : request.getParts()) {
+                String fileName = extractFileName(part);
+                if (fileName != null && fileName.length() > 0) {
+                    String filePath = fullSavePath + File.separator + fileName;
+                    System.out.println("Write attachment to file: " + filePath);
+                    // Ghi vào file.
+                    part.write(filePath);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ServletException e) {
+            e.printStackTrace();
+        }
+    }
+    private String extractFileName(Part part) {
+        // form-data; name="file"; filename="C:\file1.zip"
+        // form-data; name="file"; filename="C:\Note\file2.zip"
+        String contentDisp = part.getHeader("content-disposition");
+        String[] items = contentDisp.split(";");
+        for (String s : items) {
+            if (s.trim().startsWith("filename")) {
+                // C:\file1.zip
+                // C:\Note\file2.zip
+                String clientFileName = s.substring(s.indexOf("=") + 2, s.length() - 1);
+                clientFileName = clientFileName.replace("\\", "/");
+                int i = clientFileName.lastIndexOf('/');
+                // file1.zip
+                // file2.zip
+                return clientFileName.substring(i + 1);
+            }
+        }
+        return null;
+    }
+
 
     // Chức năng update recipe
     private void showUpdateForm(HttpServletRequest request, HttpServletResponse response) {

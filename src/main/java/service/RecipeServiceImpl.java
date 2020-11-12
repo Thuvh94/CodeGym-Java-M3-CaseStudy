@@ -51,7 +51,7 @@ public class RecipeServiceImpl implements RecipeService{
         callableStatement.setInt("yield",object.getYield());
         Category category = object.getCategoryId();
         callableStatement.setInt("categoryId",category.getCategoryId());
-        callableStatement.setString("coverImg", "noImage"); // Để test tạm
+        callableStatement.setString("coverImg", object.getCoverImg()); // Để test tạm
         int row = callableStatement.executeUpdate();
         System.out.println(row);
         callableStatement.close();
