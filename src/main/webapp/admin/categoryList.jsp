@@ -1,4 +1,5 @@
-<%--
+<%@ page import="service.CategoryService" %>
+<%@ page import="service.CategoryServiceImpl" %><%--
   Created by IntelliJ IDEA.
   User: thu
   Date: 11/10/2020
@@ -71,7 +72,8 @@
                 <th scope="row"><c:out value="${category.getCategoryId()}"/></th>
                 <td><a href="/FoodBlog?action=viewByCategory&CategoryId=${category.getCategoryId()}"><c:out
                         value="${category.getCategoryName()}"/></a></td>
-                <td>Chờ code</td>
+<%--                Code số bài đăng theo category--%>
+                <td>${category.getRecipeNumber()}</td>
                 <td>
                     <button type="button" class="btn btn-primary" data-toggle="modal"
                             data-target="#updateCategoryModal">

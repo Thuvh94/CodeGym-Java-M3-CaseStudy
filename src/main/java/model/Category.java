@@ -1,8 +1,13 @@
 package model;
 
+import service.CategoryService;
+import service.CategoryServiceImpl;
+
 public class Category {
     private int categoryId;
     private String categoryName;
+    private int recipeNumber = 0;
+
 
 
     public Category() {
@@ -15,6 +20,12 @@ public class Category {
     public Category(int categoryId, String categoryName) {
         this.categoryId = categoryId;
         this.categoryName = categoryName;
+    }
+
+    public Category(int categoryId, String categoryName, int recipeNumber) {
+        this.categoryId = categoryId;
+        this.categoryName = categoryName;
+        this.recipeNumber = recipeNumber;
     }
 
     public int getCategoryId() {
@@ -39,5 +50,13 @@ public class Category {
                 "categoryId=" + categoryId +
                 ", categoryName='" + categoryName + '\'' +
                 '}';
+    }
+
+    public void setRecipeNumber(int recipeNumber) {
+        this.recipeNumber = recipeNumber;
+    }
+
+    public int getRecipeNumber() {
+        return recipeNumber;
     }
 }

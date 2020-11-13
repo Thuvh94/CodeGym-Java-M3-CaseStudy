@@ -64,11 +64,19 @@ public class CategoryServlet extends HttpServlet {
 
     private void displayCategoryList(HttpServletRequest request, HttpServletResponse response) {
             List<Category> categoryList = new ArrayList<>();
+            List<Category> categoryListWithRecipeNum = new ArrayList<>();
             try {
                 categoryList = categoryService.findAll();
+                for (int i = 0; i < categoryList.size(); i++) {
+                    int id = categoryList.get(i).getCategoryId();
+                    String name = categoryList.get(i).getCategoryName();
+                    int recipeNum = categoryService.countRecipeByCategoryId(id);
+                    categoryList.get(i).setRecipeNumber(recipeNum);
+                    categoryListWithRecipeNum.add(new Category(id,name,recipeNum));
+                }
 //                int number = categoryService.
                 RequestDispatcher requestDispatcher = request.getRequestDispatcher("admin/categoryList.jsp");
-                request.setAttribute("categoryList", categoryList);
+                request.setAttribute("categoryList", categoryListWithRecipeNum);
                 requestDispatcher.forward(request, response);
             } catch (ServletException e) {
                 e.printStackTrace();
