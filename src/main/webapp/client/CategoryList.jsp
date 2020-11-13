@@ -66,16 +66,17 @@
         <%--      <img class="d-block w-100" src="..." alt="Third slide">--%>
         <%--    </div>--%>
     </div>
-</div>
+</div><hr>
 
 <div class="container-fluid text-center">
     <div class="row content">
         <%--        Left side bar --%>
         <div class="col-sm-2 sidenav">
-            <p><a href="#">Link</a></p>
-            <p><a href="#">Link</a></p>
-            <p><a href="#">Link</a></p>
+<%--            <p><a href="#">Link</a></p>--%>
+<%--            <p><a href="#">Link</a></p>--%>
+<%--            <p><a href="#">Link</a></p>--%>
         </div>
+
 
         <%--    Main body--%>
         <div class="col-sm-8 text-left">
@@ -84,11 +85,11 @@
                     <div class="col-md-6 col-lg-4" style="margin-bottom: 0px">
                         <div class="single_service">
                             <div class="thumb">
-                                <div><img src="" alt="Ảnh Category" style="height: 175px"></div>
+                                <div><img src="../Image/Category${category.getCategoryId()}.PNG" alt="Ảnh Category" style="height: 250px;width: 250px"></div>
                             </div>
                             <div class="service_info">
                                 <h4><c:out value="${category.getCategoryName()}"/></h4>
-                                <a href="/RecipeBlog?action=viewRecipesByCategory&id=${category.getCategoryId()}" role="button" class="btn btn-outline-dark">Xem bài viết</a>
+                                <a href="/RecipeBlog?action=viewRecipesByCategory&id=${category.getCategoryId()}" role="button" class="btn btn-outline-dark">Xem bài viết</a><br>
                             </div>
                         </div>
                     </div>
@@ -120,7 +121,11 @@
 </div>
 
 <footer class="container-fluid text-center">
-    <p>Footer Text</p>
+    <p class="navbar-brand">The LITTLE WHISK </p>
+    <blockquote class="blockquote">
+        <p class="mb-0">The smell of good bread baking, like the sound of lightly flowing water, is indescribable in its evocation of innocence and delight.</p>
+        <footer class="blockquote-footer">M. F. K. Fisher</footer>
+    </blockquote>
 </footer>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"

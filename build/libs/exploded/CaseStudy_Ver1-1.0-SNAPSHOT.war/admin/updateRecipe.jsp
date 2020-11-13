@@ -14,7 +14,9 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.css" rel="stylesheet">
     <title>Edit recipe</title>
     <style>
-        form label {font-weight:bold}
+        form label {
+            font-weight: bold
+        }
     </style>
 </head>
 <body>
@@ -106,7 +108,8 @@
         <h5>Công thức</h5>
         <c:forEach items="${cookStepList}" var="cookStep">
             <div class="form-group">
-                <textarea class="form-control summernote" name="cookStep" ><c:out value="${cookStep.getTextContent()}"></c:out></textarea>
+                <textarea class="form-control summernote" name="cookStep"><c:out
+                        value="${cookStep.getTextContent()}"></c:out></textarea>
                 <a href="" class="btn btn-danger btn-sm active col-1"
                    role="button" aria-pressed="true" style="float: right">Xóa</a><br>
                     <%--                <p name="cookStep">${cookStep.getTextContent()}</p>--%>
@@ -134,14 +137,14 @@
                 //create textbox
                 var input = document.createElement('textarea');// Tạo ra nút
                 input.setAttribute("class", "form-control summernote");
-                input.setAttribute("name","cookStep");
-               var reqs = document.getElementById("reqs");
+                input.setAttribute("name", "cookStep");
+                var reqs = document.getElementById("reqs");
                 //create remove button
                 var remove = document.createElement('a');
-                remove.setAttribute("class","btn btn-danger btn-sm active col-1");
-                remove.setAttribute("role","button");
-                remove.setAttribute("style","float: right");
-                remove.onclick = function(e) {
+                remove.setAttribute("class", "btn btn-danger btn-sm active col-1");
+                remove.setAttribute("role", "button");
+                remove.setAttribute("style", "float: right");
+                remove.onclick = function (e) {
                     removeElement(e)
                 };
                 remove.setAttribute("type", "button");
@@ -162,10 +165,11 @@
             }
 
         </script>
-        <button type="button" class="btn btn-success" value="Add" onclick="javascript:add();"> Thêm công thức </button><br><br>
-<%----%>
+        <button type="button" class="btn btn-success" value="Add" onclick="javascript:add();"> Thêm công thức</button>
+        <br><br>
+        <%----%>
         <div style="align-items: center">
-            <button type="submit" class="btn btn-primary btn-lg" >Submit</button>
+            <button type="submit" class="btn btn-primary btn-lg">Submit</button>
         </div>
 
     </form>
@@ -195,6 +199,7 @@
             ]
         });
     });
+
 
 </script>
 </body>
