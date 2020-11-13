@@ -329,7 +329,16 @@ public class RecipeServlet extends HttpServlet {
         System.out.println("categoryId: " + categoryId);
         Category category = iServiceCategory.findById(categoryId);
         System.out.println(category);
-        String coverImg = request.getParameter("coverImg");
+        uploadImage(request,response);
+        Part part = null;
+        try {
+            part =  request.getPart("coverImg");
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ServletException e) {
+            e.printStackTrace();
+        }
+        String coverImg = extractFileName(part);
         Recipe recipe = new Recipe(title, description, ingredient, difficulty, cookTime, yield, category, coverImg);
         System.out.println(recipe);
         try {
@@ -379,7 +388,7 @@ public class RecipeServlet extends HttpServlet {
         }
         Category category = iServiceCategory.findById(categoryId);
         String categoryName = category.getCategoryName();
-        List<Recipe> recipeList = iServiceRecipe.findByCategory(category);
+        List<Recipe> recipeList = iServiceCategory.findByCategory(category);
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("admin/recipeListByCategory.jsp");
         request.setAttribute("recipeList", recipeList);
         request.setAttribute("categoryList",categoryList);

@@ -1,6 +1,7 @@
 package service;
 
 import model.Category;
+import model.Recipe;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -19,4 +20,6 @@ public interface CategoryService {
     Category findById(int id);
 
     int countRecipeByCategoryId(int id);
+
+    List<Recipe> findByCategory(Category category);
 }

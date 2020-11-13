@@ -27,19 +27,6 @@
         <li class="nav-item active">
             <a class="navbar-brand" href="/RecipeBlog">The LITTLE WHISK</a>
         </li>
-<%--        <li class="nav-item dropdown active">--%>
-<%--            <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button"--%>
-<%--               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">--%>
-<%--                Danh mục bánh--%>
-<%--            </a>--%>
-<%--            <div class="dropdown-menu" aria-labelledby="navbarDropdown">--%>
-<%--                &lt;%&ndash;        <c:forEach items="${categoryList}" var="category">&ndash;%&gt;--%>
-<%--                &lt;%&ndash;          <a class="dropdown-item"&ndash;%&gt;--%>
-<%--                &lt;%&ndash;             href="/FoodBlog?action=viewByCategory&CategoryId=${category.getCategoryId()}"><c:out&ndash;%&gt;--%>
-<%--                &lt;%&ndash;                  value="${category.getCategoryName()}"></c:out></a>&ndash;%&gt;--%>
-<%--                &lt;%&ndash;        </c:forEach>&ndash;%&gt;--%>
-<%--            </div>--%>
-<%--        </li>--%>
         <li class="nav-item active">
             <a href="/RecipeBlog?action=viewAllRecipes" class="nav-link">Công thức</a>
         </li>
@@ -60,12 +47,6 @@
         <div class="carousel-item active">
             <img class="d-block w-100" src="Image/LittleWhiskBanner.png" alt="First slide">
         </div>
-        <%--    <div class="carousel-item">--%>
-        <%--      <img class="d-block w-100" src="..." alt="Second slide">--%>
-        <%--    </div>--%>
-        <%--    <div class="carousel-item">--%>
-        <%--      <img class="d-block w-100" src="..." alt="Third slide">--%>
-        <%--    </div>--%>
     </div>
 </div>
 
@@ -82,7 +63,7 @@
         <div class="col-sm-8 text-left">
             <c:forEach items="${recipeList}" var="recipe">
                <h3>${recipe.getTitle()}</h3>
-               <img src="${recipe.getCoverImg()}" alt="Cover Img">
+               <img src="../Image/${recipe.getCoverImg()}" alt="${recipe.getCoverImg()}" style="width: 800px;height: 500px">
                <p>${recipe.getDescription()}</p>
                <a href="/RecipeBlog?action=viewDetail&id=${recipe.getRecipeId()}" class="btn btn-outline-dark" role="button">Xem tiếp</a>
                 <hr>

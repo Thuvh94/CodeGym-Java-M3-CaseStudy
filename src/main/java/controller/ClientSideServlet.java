@@ -156,7 +156,7 @@ public class ClientSideServlet extends HttpServlet {
         int categoryId = Integer.parseInt(request.getParameter("id"));
 //        List<Category> categoryList = null;
         Category category = iServiceCategory.findById(categoryId);
-        List<Recipe> recipeList = iServiceRecipe.findByCategory(category);
+        List<Recipe> recipeList = iServiceCategory.findByCategory(category);
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("client/RecipeList.jsp");
         request.setAttribute("recipeList", recipeList);
         request.setAttribute("category",category);

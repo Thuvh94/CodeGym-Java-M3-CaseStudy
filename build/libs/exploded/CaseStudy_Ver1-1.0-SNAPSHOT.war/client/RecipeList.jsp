@@ -83,12 +83,13 @@
                     <div class="col-md-6 col-lg-4" style="margin-bottom: 0px">
                         <div class="single_service">
                             <div class="thumb">
-                                <div><img src="${recipe.getCoverImg()}" style="height: 175px"></div>
+                                <div> <img src="../Image/${recipe.getCoverImg()}" class="figure-img img-fluid rounded"
+                                           alt="${recipe.getCoverImg()}" style="width: 250px;height: 250px"></div>
                             </div>
                             <div class="service_info">
                                 <h4><c:out value="${recipe.getTitle()}"/></h4>
                                 <a href="/RecipeBlog?action=viewDetail&id=${recipe.getRecipeId()}" role="button" class="btn btn-outline-dark">Xem tiếp</a>
-                            </div>
+                            </div><br>
                         </div>
                     </div>
                 </c:forEach>

@@ -12,7 +12,6 @@ public interface RecipeService{
     void update (int id, Recipe object) throws SQLException, ClassNotFoundException;
     void delete(int id) throws SQLException, ClassNotFoundException;
     Recipe findById (int id);
-    List<Recipe> findByCategory(Category category);
     List<Recipe> findByName(String name);
 
 }

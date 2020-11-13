@@ -18,6 +18,10 @@
         span {
             font-weight: bold;
         }
+        .img-fluid {
+            max-width: 100%;
+            height: 400px;
+        }
     </style>
 </head>
 <body>
@@ -83,7 +87,7 @@
     </ul><br><br>
     <figure class="figure">
         <img src="../Image/${recipe.getCoverImg()}" class="figure-img img-fluid rounded"
-             alt="${recipe.getCoverImg()}">
+             alt="${recipe.getCoverImg()}" style="width: 800px">
     </figure>
     <div class="summerNote">${recipe.getDescription()}</div><br>
     <h5>Nguyên liệu</h5><br>

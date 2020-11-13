@@ -61,7 +61,7 @@
             <th scope="col">ID</th>
             <th scope="col">Tên công thức</th>
             <th scope="col">Ngày tạo</th>
-            <th scope="col">Người tạo</th>
+<%--            <th scope="col">Người tạo</th>--%>
             <th scope="col"></th>
             <th scope="col"></th>
         </tr>
@@ -73,7 +73,7 @@
                 <td><a href="/FoodBlog?action=view&id=${recipe.getRecipeId()}"><c:out value="${recipe.getTitle()}"/></a>
                 </td>
                 <td><c:out value="${recipe.getCreatedAt()}"/></td>
-                <td><c:out value="${'Writer'}"/></td>
+<%--                <td><c:out value="${'Writer'}"/></td>--%>
                 <td>
                     <a href="/FoodBlog?action=update&id=${recipe.getRecipeId()}" class="btn btn-primary btn-sm active"
                        role="button" aria-pressed="true">Chỉnh sửa</a>

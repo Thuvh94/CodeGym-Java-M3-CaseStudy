@@ -104,8 +104,8 @@
             </ul>
             <br><br>
             <figure class="figure">
-                <img src="${recipe.getCoverImg()}" class="figure-img img-fluid rounded"
-                     alt="A generic square placeholder image with rounded corners in a figure.">
+                <img src="../Image/${recipe.getCoverImg()}" class="figure-img img-fluid rounded"
+                     alt="${recipe.getCoverImg()}" style="width: 800px;height: 400px">
             </figure>
             <div class="summerNote">${recipe.getDescription()}</div>
             <br>

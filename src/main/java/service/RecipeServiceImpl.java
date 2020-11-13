@@ -34,7 +34,8 @@ public class RecipeServiceImpl implements RecipeService{
             Timestamp publishedAt = resultSet.getTimestamp("publishedAt");
             Timestamp createdAt = resultSet.getTimestamp("createdAt");
             int writerId = resultSet.getInt("writerId");
-            recipeList.add(new Recipe( recipeId, title, description, ingredient, difficulty, cookTime,yield,category, publishedAt, createdAt,writerId)) ;
+            String coverImg = resultSet.getString("coverImg");
+            recipeList.add(new Recipe( recipeId, title, description, ingredient, difficulty, cookTime,yield,category, publishedAt, createdAt,coverImg,writerId)) ;
         }
         return recipeList;
     }
@@ -51,7 +52,7 @@ public class RecipeServiceImpl implements RecipeService{
         callableStatement.setInt("yield",object.getYield());
         Category category = object.getCategoryId();
         callableStatement.setInt("categoryId",category.getCategoryId());
-        callableStatement.setString("coverImg", object.getCoverImg()); // Để test tạm
+        callableStatement.setString("coverImg", object.getCoverImg());
         int row = callableStatement.executeUpdate();
         System.out.println(row);
         callableStatement.close();
@@ -70,7 +71,7 @@ public class RecipeServiceImpl implements RecipeService{
         callableStatement.setInt("yield",object.getYield());
         Category category = object.getCategoryId();
         callableStatement.setInt("categoryId",category.getCategoryId());
-        callableStatement.setString("coverImg","No Image"); // Set tạm để Test
+        callableStatement.setString("coverImg",object.getCoverImg());
         int row = callableStatement.executeUpdate();
         System.out.println(row);
         callableStatement.close();
@@ -108,7 +109,7 @@ public class RecipeServiceImpl implements RecipeService{
                 Timestamp createdAt = resultSet.getTimestamp("createdAt");
                 String coverImg = resultSet.getString("coverImg");
                 int writerId = resultSet.getInt("writerId");
-                recipe = new Recipe( id, title, description, ingredient, difficulty, cookTime,yield,category, publishedAt, createdAt, coverImg, writerId);
+                recipe = new Recipe( id, title, description, ingredient, difficulty, cookTime,yield,category, publishedAt, createdAt, coverImg,writerId);
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -118,37 +119,7 @@ public class RecipeServiceImpl implements RecipeService{
         return recipe;
     }
 
-    @Override
-    public List<Recipe> findByCategory(Category category) {
-        List<Recipe> recipeList = new ArrayList<>();
-        Connection connection = new Connection();
-        CallableStatement callableStatement = null;
-        try {
-            callableStatement = connection.getConnection().prepareCall("{ call findRecipeByCategory(?)}");
-            callableStatement.setInt(1,category.getCategoryId());
-            ResultSet resultSet = callableStatement.executeQuery();
-            while (resultSet.next()){
-                int recipeId = resultSet.getInt("recipeId");
-                String title = resultSet.getString("title");
-                String description = resultSet.getString("description");
-                String ingredient = resultSet.getString("ingredient");
-                int difficulty = resultSet.getInt("difficulty");
-                float cookTime = resultSet.getFloat("cookTime");
-                int yield = resultSet.getInt("yield");
-//                int categoryId = resultSet.getInt("categoryId");
-                Timestamp publishedAt = resultSet.getTimestamp("publishedAt");
-                Timestamp createdAt = resultSet.getTimestamp("createdAt");
-                String coverImg = resultSet.getString("coverImg");
-                int writerId = resultSet.getInt("writerId");
-                recipeList.add(new Recipe( recipeId, title, description, ingredient, difficulty, cookTime,yield,category, publishedAt, createdAt,coverImg,writerId)) ;
-            }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-        return recipeList;
-    }
+
     @Override
     public List<Recipe> findByName(String name){
         List<Recipe> recipeList = new ArrayList<>();
@@ -172,7 +143,8 @@ public class RecipeServiceImpl implements RecipeService{
                 Timestamp publishedAt = resultSet.getTimestamp("publishedAt");
                 Timestamp createdAt = resultSet.getTimestamp("createdAt");
                 int writerId = resultSet.getInt("writerId");
-                recipeList.add(new Recipe( recipeId, title, description, ingredient, difficulty, cookTime,yield,category, publishedAt, createdAt,writerId)) ;
+                String coverImg = resultSet.getString("coverImg");
+                recipeList.add(new Recipe( recipeId, title, description, ingredient, difficulty, cookTime,yield,category, publishedAt, createdAt,coverImg,writerId)) ;
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();

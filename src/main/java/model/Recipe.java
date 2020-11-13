@@ -39,8 +39,8 @@ public class Recipe {
         this.categoryId = categoryId;
         this.publishedAt = publishedAt;
         this.createdAt = createdAt;
-        this.coverImg = coverImg;
         this.writerId = writerId;
+        this.coverImg = coverImg;
     }
     public Recipe(int recipeId, String title, String description, String ingredient, int difficulty, float cookTime, int yield, Category categoryId, Timestamp publishedAt, Timestamp createdAt,int writerId) {
         this.recipeId = recipeId;

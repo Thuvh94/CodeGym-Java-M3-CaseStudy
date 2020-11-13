@@ -20,7 +20,7 @@
         }
         .img-fluid {
             max-width: 100%;
-            height: 400;
+            height: 400px;
         }
     </style>
 </head>

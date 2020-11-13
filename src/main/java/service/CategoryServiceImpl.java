@@ -1,6 +1,7 @@
 package service;
 
 import model.Category;
+import model.Recipe;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -116,6 +117,37 @@ public class CategoryServiceImpl implements CategoryService {
             e.printStackTrace();
         }
         return number;
+    }
+    @Override
+    public List<Recipe> findByCategory(Category category) {
+        List<Recipe> recipeList = new ArrayList<>();
+        Connection connection = new Connection();
+        CallableStatement callableStatement = null;
+        try {
+            callableStatement = connection.getConnection().prepareCall("{ call findRecipeByCategory(?)}");
+            callableStatement.setInt(1,category.getCategoryId());
+            ResultSet resultSet = callableStatement.executeQuery();
+            while (resultSet.next()){
+                int recipeId = resultSet.getInt("recipeId");
+                String title = resultSet.getString("title");
+                String description = resultSet.getString("description");
+                String ingredient = resultSet.getString("ingredient");
+                int difficulty = resultSet.getInt("difficulty");
+                float cookTime = resultSet.getFloat("cookTime");
+                int yield = resultSet.getInt("yield");
+//                int categoryId = resultSet.getInt("categoryId");
+                Timestamp publishedAt = resultSet.getTimestamp("publishedAt");
+                Timestamp createdAt = resultSet.getTimestamp("createdAt");
+                String coverImg = resultSet.getString("coverImg");
+                int writerId = resultSet.getInt("writerId");
+                recipeList.add(new Recipe( recipeId, title, description, ingredient, difficulty, cookTime,yield,category, publishedAt, createdAt,coverImg,writerId)) ;
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return recipeList;
     }
 
     private void printSQLException(SQLException ex) {
